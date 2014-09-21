@@ -10,6 +10,7 @@
 		<file>qml/utils/BaseButtonTheme.qml</file>
 		<file>qml/utils/BaseIcon.qml</file>
 		<file>qml/utils/BaseTabBarPage.qml</file>
+		<file>qml/utils/BaseWindow.qml</file>
 		<file>qml/utils/ClickGuard.qml</file>
 		<file>qml/utils/Fill.qml</file>
 		<file>qml/utils/RootItem.qml</file>

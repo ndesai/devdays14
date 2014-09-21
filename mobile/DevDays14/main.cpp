@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 
     QString mainQml = QStringLiteral(QML_DEVELOPMENT);
 
-#if Q_OS_IOS
+#ifdef Q_OS_IOS
     mainQml = QStringLiteral("qrc:/qml/main_ios.qml");
 /// TODO: Q_OS_ANDROID || Q_OS_BLACKBERRY || Q_OS_WINPHONE
 #endif

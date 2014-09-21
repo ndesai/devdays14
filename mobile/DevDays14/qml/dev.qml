@@ -1,7 +1,9 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2 as Controls
+import QtQuick.Window 2.0
+import "utils" as Utils
 
-Controls.ApplicationWindow {
+Utils.BaseWindow {
     id: superRoot
     visible: true
     width: 1440
@@ -16,22 +18,44 @@ Controls.ApplicationWindow {
         id: _Item_Container
         anchors.fill: parent
         anchors.margins: 50
-        Loader {
-            id: _Loader_iOS
+        Item {
+            id: _Item_Container_iOS
             width: 750 / 2
             height: 1334 / 2
-            source: "main_ios.qml"
-            anchors.verticalCenter: parent.verticalCenter
-            Controls.Button {
-                width: parent.width
-                height: 40
-                anchors.top: parent.bottom
-                anchors.topMargin: 25
-                text: "Show Fills"
-                onClicked: {
-                    _Loader_iOS.item.showFills ^= 1
+            Loader {
+                id: _Loader_iOS
+                width: 750
+                height: 1334
+                anchors.left: parent.left;
+                anchors.top: parent.top
+                source: "home.qml"
+                Scale {
+                    id: _Scale_iOS
+                    xScale: 0.5; yScale: 0.5
+                    origin.x: 0; origin.y: 0
                 }
+                state: "scaled"
+                states: [
+                    State {
+                        name: "scaled"
+                        PropertyChanges {
+                            target: _Loader_iOS
+                            transform: _Scale_iOS
+                        }
+                    }
+                ]
             }
         }
+        Controls.Button {
+            width: _Item_Container_iOS.width
+            height: 40
+            anchors.top: _Item_Container_iOS.bottom
+            anchors.topMargin: 25
+            text: "Show Fills"
+            onClicked: {
+                superRoot.showFills ^= 1
+            }
+        }
+
     }
 }

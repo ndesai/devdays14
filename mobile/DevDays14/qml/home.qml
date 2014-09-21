@@ -1,10 +1,15 @@
 import QtQuick 2.0
 import "views" as Views
 import "utils" as Utils
-Rectangle {
+
+Item {
     width: 750
     height: 1334
-    color: "#ffffff"
+
+    Rectangle {
+        anchors.fill: parent
+        color: "#ffffff"
+    }
 
     Views.Header {
         id: _Header

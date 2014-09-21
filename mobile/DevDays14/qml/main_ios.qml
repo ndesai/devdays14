@@ -1,8 +1,9 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
+import QtQuick.Window 2.0
 import "utils" as Utils
 
-Utils.RootItem {
+Utils.BaseWindow {
     id: superRoot
     property int screenWidth : 750
     property int screenHeight : 1334
