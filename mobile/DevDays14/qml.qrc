@@ -1,0 +1,23 @@
+<RCC>
+	<qresource prefix="/">
+		<file>qml/dev.qml</file>
+		<file>qml/home.qml</file>
+		<file>qml/img/icon-calendar.png</file>
+		<file>qml/img/icon-list.png</file>
+		<file>qml/img/logo-header.png</file>
+		<file>qml/img/triangular.png</file>
+		<file>qml/main_ios.qml</file>
+		<file>qml/utils/BaseButtonTheme.qml</file>
+		<file>qml/utils/BaseIcon.qml</file>
+		<file>qml/utils/BaseTabBarPage.qml</file>
+		<file>qml/utils/ClickGuard.qml</file>
+		<file>qml/utils/Fill.qml</file>
+		<file>qml/utils/RootItem.qml</file>
+		<file>qml/utils/TabBarButton.qml</file>
+		<file>qml/utils/TabBarController.qml</file>
+		<file>qml/views/Header.qml</file>
+		<file>qml/views/Label.qml</file>
+		<file>qml/views/Schedule.qml</file>
+		<file>qml/views/TabBarController.qml</file>
+	</qresource>
+</RCC>
