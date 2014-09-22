@@ -45,4 +45,5 @@
          Remove the comment if you do not require these default features. -->
 
 
+<uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
