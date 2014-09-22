@@ -21,6 +21,9 @@ Qt Developer Days - Mobile application - Scheduling for Sessions + Tracks
 - Speaker Information
 - Venue information
 
+**Design:**
+
+![image](design/screenshot.jpg =240x)
 
 
 ---
