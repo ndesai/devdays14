@@ -2,14 +2,15 @@ TEMPLATE = app
 
 QT += qml quick widgets
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    src/uivalues.cpp
 
 RESOURCES += qml.qrc
 
-# Apple
 osx {
     QMAKE_MAC_SDK = macosx10.9
 }
+
 ios {
     LIBS += -framework MobileCoreServices
     LIBS += -framework MessageUI
@@ -18,14 +19,21 @@ ios {
 }
 
 android {
-
+    QT += androidextras
 }
-
-# blackberry
-
-qnx {
-
-}
-
 
 include(deployment.pri)
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
+OTHER_FILES += \
+    android/AndroidManifest.xml \
+    android/src/com/iktwo/qtdevdays14/DevDays.java
+
+lupdate_only{
+    SOURCES = qml/*.qml \
+        qml/android/*.qml
+}
+
+HEADERS += \
+    src/uivalues.h
