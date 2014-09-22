@@ -6,7 +6,7 @@ import "utils" as Utils
 Utils.BaseWindow {
     id: superRoot
     visible: true
-    width: 1440
+    width: 600
     height: 900
     color: "#000000"
     Image {
@@ -29,6 +29,7 @@ Utils.BaseWindow {
                 anchors.left: parent.left;
                 anchors.top: parent.top
                 source: "home.qml"
+                clip: true
                 Scale {
                     id: _Scale_iOS
                     xScale: 0.5; yScale: 0.5

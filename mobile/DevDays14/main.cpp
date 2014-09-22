@@ -1,7 +1,12 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlExtensionPlugin>
 
 #define QML_DEVELOPMENT "qrc:/qml/dev.qml"
+
+#if defined(Q_OS_IOS)
+Q_IMPORT_PLUGIN(PlatformPlugin)
+#endif
 
 int main(int argc, char *argv[])
 {

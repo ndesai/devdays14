@@ -9,14 +9,14 @@ Rectangle {
     anchors.left: parent.left
     anchors.right: parent.right
     height: 164
-    color: "#f3f3f3"
+    color: __theme.lightGrey
 
     Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         height: 2
-        color: "#d1d1d0"
+        color: __theme.lightGreyAccent
     }
 
     Item {
