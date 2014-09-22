@@ -3,9 +3,10 @@ import QtQuick.Controls 1.2
 import QtQuick.Window 2.1
 import com.iktwo.components 1.0
 import "android" as Android
+import "utils" as Utils
 
-ApplicationWindow {
-    id: appWindow
+Utils.BaseWindow {
+    id: superRoot
 
     property var resolutions: [
         {"height": 480, "width": 320, "name": "HVGA", "ratio": "3:2"},
@@ -28,7 +29,7 @@ ApplicationWindow {
 
     TitleBar {
         title: "Qt Developer Days 2014"
-        isScreenPortrait: appWindow.isScreenPortrait
+        isScreenPortrait: superRoot.isScreenPortrait
     }
 
     StackView {
@@ -41,11 +42,15 @@ ApplicationWindow {
         Android.TutorialPage { }
     }
 
-
     Component.onCompleted: {
         Theme.titleBarColor = "#53ab3a"
         Theme.titleBarTextColor = "#ffffff"
 
         ui.showMessage("test")
+    }
+
+
+    MainPage {
+
     }
 }
