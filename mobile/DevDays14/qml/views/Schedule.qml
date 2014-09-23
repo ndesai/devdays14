@@ -151,7 +151,7 @@ Utils.BaseTabBarPage {
 
                                         Rectangle {
                                             id: _Rectangle_TrackColor
-                                            width: 10
+                                            width: __theme.colorIndicatorWidth
                                             anchors.top: parent.top
                                             anchors.topMargin: 20
                                             anchors.bottom: parent.bottom
@@ -164,7 +164,7 @@ Utils.BaseTabBarPage {
                                                 radius: parent.radius
                                                 anchors.fill: parent
                                                 opacity: 0.25
-                                                border { width: 2; color: Qt.darker(_Rectangle_TrackColor.color) }
+                                                border { width: __theme.colorIndicatorBorderWidth; color: Qt.darker(_Rectangle_TrackColor.color) }
                                             }
                                         }
 

@@ -31,6 +31,8 @@ Item {
 
         property int scheduleViewPixelSize: 36
         property int scheduleViewTitlePixelSize: 34
+        property int colorIndicatorWidth: 10
+        property int colorIndicatorBorderWidth: 2
     }
 
     StateGroup {
@@ -58,6 +60,8 @@ Item {
                 PropertyChanges { target: __theme; dateViewPixelSize: 14 * DD14.ScreenValues.dp }
                 PropertyChanges { target: __theme; scheduleViewPixelSize: 16 * DD14.ScreenValues.dp }
                 PropertyChanges { target: __theme; scheduleViewTitlePixelSize: 17 * DD14.ScreenValues.dp }
+                PropertyChanges { target: __theme; colorIndicatorWidth: 6 * DD14.ScreenValues.dp }
+                PropertyChanges { target: __theme; colorIndicatorBorderWidth: 1 * DD14.ScreenValues.dp }
             }
         ]
     }
