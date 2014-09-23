@@ -1,6 +1,7 @@
 import QtQuick 2.3
-import QtQuick.Controls 1.1
-import com.iktwo.components 1.0
+import com.iktwo.components 1.0 as IC
+import DevDays14 1.0
+import "../views"
 
 Item {
     id: root
@@ -8,7 +9,6 @@ Item {
     property alias color: container.color
     property alias title: titleLabel.text
     property alias titleLabel: titleLabel
-    property alias titleColor: titleLabel.color
     property string iconSource
     property bool isScreenPortrait: false
 
@@ -23,7 +23,7 @@ Item {
         id: container
 
         anchors.fill: parent
-        color: Theme.titleBarColor
+        color: IC.Theme.titleBarColor
 
         Item {
             id: iconImage
@@ -53,8 +53,6 @@ Item {
             }
 
             font.pixelSize: 18 * ScreenValues.dp
-
-            color: Theme.titleBarTextColor
         }
     }
 }
