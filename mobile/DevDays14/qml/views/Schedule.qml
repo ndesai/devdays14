@@ -13,12 +13,13 @@ Utils.BaseTabBarPage {
 
         ListView {
             id: _ListView_DateView
+            property int delegateWidth : width / 1.5
             anchors.fill: parent
             orientation: ListView.Horizontal
             snapMode: ListView.SnapOneItem
             highlightRangeMode: ListView.StrictlyEnforceRange
-            preferredHighlightBegin: 0.2*width
-            preferredHighlightEnd: 0.8*width
+            preferredHighlightBegin: ((width - delegateWidth) / 2)
+            preferredHighlightEnd: preferredHighlightBegin + delegateWidth
             highlightMoveDuration: 400
 
             onCurrentIndexChanged: {
@@ -27,10 +28,11 @@ Utils.BaseTabBarPage {
             model: __models.schedule && __models.schedule.schedule ?
                        __models.schedule.schedule
                      : 0
+
             delegate: Item {
                 id: _Item_Delegate
                 property variant dataModel : modelData
-                width: ListView.view.width / 1.5
+                width: ListView.view.delegateWidth
                 height: ListView.view.height
 
                 Item {
