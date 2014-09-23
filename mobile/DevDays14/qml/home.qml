@@ -169,7 +169,8 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: _TabBarController.top
-
+        clip: true
+        Behavior on scale { NumberAnimation { duration: 350; easing.type: Easing.OutCubic} }
         Views.Schedule {
             id: _Schedule
             controller: _TabBarController
@@ -178,9 +179,17 @@ Item {
     }
 
     // Sheets
+    Views.UnderSheetDarkener {
+        id: _UnderSheetDarkener
+        onShowing: _Item_PageContainer.scale = 0.95
+        onHiding: _Item_PageContainer.scale = 1.0
+        z: 2
+    }
 
     Views.TrackDetailSheet {
         id: _TrackDetailSheet
+        onOpening: _UnderSheetDarkener.show()
+        onClosing: _UnderSheetDarkener.hide()
         z: 2
     }
 

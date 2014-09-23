@@ -68,5 +68,7 @@
         <file>resources/fonts/Muli-LightItalic.ttf</file>
         <file>resources/fonts/Muli-Light.ttf</file>
         <file>resources/fonts/Muli-Italic.ttf</file>
+        <file>qml/img/icon-heart.png</file>
+        <file>qml/views/UnderSheetDarkener.qml</file>
     </qresource>
 </RCC>

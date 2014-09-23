@@ -17,6 +17,47 @@ Slide {
                 }
                 onClicked: root.close()
             }
+            rightContent: Utils.ClickGuard {
+                id: _ClickGuard_HeartButton
+                property bool isFavorite : false
+                Rectangle {
+                    id: _Rectangle_HeartCircle
+                    anchors.centerIn: parent
+                    height: parent.height - 16
+                    width: height
+                    radius: width / 2
+                    color: "transparent"
+                    layer.enabled: true
+                    layer.smooth: true
+                    Utils.BaseIcon {
+                        id: _BaseIcon_Heart
+                        source: "../img/icon-heart.png"
+                        color: "#222222"
+                        anchors.centerIn: parent
+                    }
+                }
+                states: [
+                    State {
+                        when: _ClickGuard_HeartButton.isFavorite
+                        PropertyChanges {
+                            target: _BaseIcon_Heart
+                            color: "#ffffff"
+                        }
+                        PropertyChanges {
+                            target: _Rectangle_HeartCircle
+                            color: __theme.qtColorLightGreen
+
+                        }
+                    }
+                ]
+                onClicked: {
+                    isFavorite ^= 1
+                    if(isFavorite)
+                    {
+                        console.log("add " + root.getProperty('id') + " to favorites")
+                    }
+                }
+            }
 
             Label {
                 anchors.fill: parent
@@ -119,7 +160,14 @@ Slide {
                                 anchors.fill: parent
                                 sourceSize.width: width
                                 sourceSize.height: height
-                                source: root.getProperty('presenter').image
+                                smooth: true
+                                source: root.getProperty('presenter').image || ""
+                                onStatusChanged: {
+                                    if(status === Image.Error)
+                                    {
+                                        console.log("image error - " + source)
+                                    }
+                                }
                             }
                         }
                         Column {

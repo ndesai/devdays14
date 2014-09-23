@@ -7,6 +7,7 @@ Utils.BaseTabBarPage {
     {
         var trackDetailObject = JSON.parse(JSON.stringify(__models.track[trackObject.id]))
         try {
+            trackDetailObject.id = trackObject.id
             trackDetailObject.presentation.track.color = trackObject.color
             trackDetailObject.session = trackObject.session
         } catch (ex)
