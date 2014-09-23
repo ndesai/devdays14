@@ -44,14 +44,16 @@ Utils.BaseWindow {
     }
 
     Component.onCompleted: {
-        Theme.titleBarColor = "#53ab3a"
+        Theme.titleBarColor = "#f3f3f3"
         Theme.titleBarTextColor = "#ffffff"
 
         ui.showMessage("test")
     }
 
 
-    MainPage {
+    Loader {
+        id: _Loader
+
         anchors {
             top: actionBar.bottom
             bottom: parent.bottom
@@ -59,7 +61,11 @@ Utils.BaseWindow {
             right: parent.right
         }
 
-        header.height: 0
-        header.visible: false
+        source: "home.qml"
+
+        onLoaded: {
+            item.header.height = 0
+            item.header.visible = false
+        }
     }
 }
