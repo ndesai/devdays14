@@ -11,19 +11,21 @@ Item {
     height: Qt.platform.os === "ios" ? 750 : parent.height
     width:  Qt.platform.os === "ios" ? 1334 : parent.width
 
-    FontLoader { id: muliFontI; source: "qrc:/fonts/resources/fonts/Muli-Italic.ttf" }
-    FontLoader { id: muliFontL; source: "qrc:/fonts/resources/fonts/Muli-Light.ttf" }
-    FontLoader { id: muliFontIL; source: "qrc:/fonts/resources/fonts/Muli-LightItalic.ttf" }
-    FontLoader { id: muliFont; source: "qrc:/fonts/resources/fonts/Muli-Regular.ttf" }
-
     QtObject {
         id: _QtObject_Theme
+
         property color qtColorLightGreen : "#7fc438"
         property color qtColorDarkGreen : "#026426"
         property color lightGrey : "#f3f3f3"
         property color lightGreyAccent : "#d1d1d0"
         property color lightGreyAccentSecondary : "#eeeeee"
+        property alias fontFamily: font.name
     }
+
+    FontLoader { source: Qt.platform.os === "ios" ? "Avenir Next" : "qrc:/fonts/resources/fonts/Muli-Italic.ttf" }
+    FontLoader { source: Qt.platform.os === "ios" ? "Avenir Next" : "qrc:/fonts/resources/fonts/Muli-Light.ttf" }
+    FontLoader { source: Qt.platform.os === "ios" ? "Avenir Next" : "qrc:/fonts/resources/fonts/Muli-LightItalic.ttf" }
+    FontLoader { id: font; source: Qt.platform.os === "ios" ? "Avenir Next" : "qrc:/fonts/resources/fonts/Muli-Regular.ttf" }
 
     property alias _config : _QtObject_Config
     QtObject {
