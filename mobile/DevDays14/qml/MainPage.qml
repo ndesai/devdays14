@@ -6,6 +6,7 @@ Item {
     id: root
 
     property alias __theme : _QtObject_Theme
+    property alias header: _Header
 
     height: parent.height
     width: parent.width

@@ -32,6 +32,7 @@
         <file>qml/android/TutorialPage.qml</file>
         <file>qml/android/Arrow.qml</file>
         <file>qml/MainPage.qml</file>
+        <file>qml/android/ActionBar.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="icon">resources/images/uhd-icon.png</file>

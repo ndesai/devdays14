@@ -27,8 +27,9 @@ Utils.BaseWindow {
     width: resolutions[currentResolution]["width"]
     height: resolutions[currentResolution]["height"]
 
-    TitleBar {
-        title: "Qt Developer Days 2014"
+    Android.ActionBar {
+        id: actionBar
+        title: "<html><font color=\"#322e2d\">Qt DEVELOPER DAYS </font> <font color=\"#5c9c1c\">2014</font></html>"
         isScreenPortrait: superRoot.isScreenPortrait
     }
 
@@ -51,6 +52,14 @@ Utils.BaseWindow {
 
 
     MainPage {
+        anchors {
+            top: actionBar.bottom
+            bottom: parent.bottom
+            left: parent.left
+            right: parent.right
+        }
 
+        header.height: 0
+        header.visible: false
     }
 }
