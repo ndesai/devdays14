@@ -5,11 +5,12 @@ import "utils" as Utils
 Item {
     id: root
 
-    property alias __theme : _QtObject_Theme
     property alias header: _Header
 
     height: Qt.platform.os === "ios" ? 750 : parent.height
     width:  Qt.platform.os === "ios" ? 1334 : parent.width
+
+    property alias __theme : _QtObject_Theme
 
     QtObject {
         id: _QtObject_Theme
@@ -22,10 +23,35 @@ Item {
         property alias fontFamily: font.name
     }
 
-    FontLoader { source: Qt.platform.os === "ios" ? "Avenir Next" : "qrc:/fonts/resources/fonts/Muli-Italic.ttf" }
-    FontLoader { source: Qt.platform.os === "ios" ? "Avenir Next" : "qrc:/fonts/resources/fonts/Muli-Light.ttf" }
-    FontLoader { source: Qt.platform.os === "ios" ? "Avenir Next" : "qrc:/fonts/resources/fonts/Muli-LightItalic.ttf" }
-    FontLoader { id: font; source: Qt.platform.os === "ios" ? "Avenir Next" : "qrc:/fonts/resources/fonts/Muli-Regular.ttf" }
+    StateGroup {
+        id: _StateGroup_Theme
+
+        state: "android"
+
+        states: [
+            State {
+                name: "ios"
+                when: Qt.platform.os === "ios"
+                PropertyChanges { target: fontI; source: "Avenir Next" }
+                PropertyChanges { target: fontL; source: "Avenir Next" }
+                PropertyChanges { target: fontLI; source: "Avenir Next" }
+                PropertyChanges { target: font; source: "Avenir Next" }
+            },
+            State {
+                name: "android"
+                when: Qt.platform.os === "android"
+                PropertyChanges { target: fontI; source: "qrc:/fonts/resources/fonts/Muli-Italic.ttf" }
+                PropertyChanges { target: fontL; source: "qrc:/fonts/resources/fonts/Muli-Light.ttf" }
+                PropertyChanges { target: fontLI; source: "qrc:/fonts/resources/fonts/Muli-LightItalic.ttf" }
+                PropertyChanges { target: font; source: "qrc:/fonts/resources/fonts/Muli-Regular.ttf" }
+            }
+        ]
+    }
+
+    FontLoader { id: fontI }
+    FontLoader { id: fontL }
+    FontLoader { id: fontLI }
+    FontLoader { id: font }
 
     property alias _config : _QtObject_Config
     QtObject {
