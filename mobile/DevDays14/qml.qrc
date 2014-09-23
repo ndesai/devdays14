@@ -1,6 +1,5 @@
 <RCC>
 	<qresource prefix="/">
-		<file>qml/.DS_Store</file>
 		<file>qml/android/ActionBar.qml</file>
 		<file>qml/android/Arrow.qml</file>
 		<file>qml/android/TutorialPage.qml</file>
