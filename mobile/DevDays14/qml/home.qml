@@ -1,9 +1,13 @@
 import QtQuick 2.3
 import "views" as Views
 import "utils" as Utils
+import DevDays14 1.0 as DD14
+
 
 Item {
     id: root
+
+    property bool isScreenPortrait: height >= width
 
     property alias header: _Header
 
@@ -21,6 +25,12 @@ Item {
         property color lightGreyAccent : "#d1d1d0"
         property color lightGreyAccentSecondary : "#eeeeee"
         property alias fontFamily: font.name
+
+        property int dateViewHeight: 100
+        property int dateViewPixelSize: 34
+
+        property int scheduleViewPixelSize: 36
+        property int scheduleViewTitlePixelSize: 34
     }
 
     StateGroup {
@@ -44,6 +54,10 @@ Item {
                 PropertyChanges { target: fontL; source: "qrc:/fonts/resources/fonts/Muli-Light.ttf" }
                 PropertyChanges { target: fontLI; source: "qrc:/fonts/resources/fonts/Muli-LightItalic.ttf" }
                 PropertyChanges { target: font; source: "qrc:/fonts/resources/fonts/Muli-Regular.ttf" }
+                PropertyChanges { target: __theme; dateViewHeight: Math.ceil(DD14.ScreenValues.dp * (DD14.ScreenValues.isTablet ? 56 : (isScreenPortrait ? 48 : 40))) * 0.78 }
+                PropertyChanges { target: __theme; dateViewPixelSize: 14 * DD14.ScreenValues.dp }
+                PropertyChanges { target: __theme; scheduleViewPixelSize: 16 * DD14.ScreenValues.dp }
+                PropertyChanges { target: __theme; scheduleViewTitlePixelSize: 17 * DD14.ScreenValues.dp }
             }
         ]
     }

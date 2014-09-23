@@ -8,7 +8,7 @@ Utils.BaseTabBarPage {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
-        height: 100
+        height: __theme.dateViewHeight
         color: __theme.qtColorLightGreen
 
         ListView {
@@ -45,6 +45,7 @@ Utils.BaseTabBarPage {
                         verticalAlignment: Text.AlignVCenter
                         text: modelData.day.date.formatted
                         color: "#ffffff"
+                        font.pixelSize: __theme.dateViewPixelSize
                         Utils.Fill { }
                     }
                     Rectangle {
@@ -121,7 +122,7 @@ Utils.BaseTabBarPage {
                                     color: "#222222"
                                     style: Text.Raised
                                     styleColor: "#ffffff"
-                                    font.pixelSize: 36
+                                    font.pixelSize: __theme.scheduleViewPixelSize
                                     elide: Text.ElideRight
                                 }
                                 Utils.AccentTop {
@@ -178,7 +179,7 @@ Utils.BaseTabBarPage {
                                                 id: _Label_TrackTitle
                                                 anchors.left: parent.left
                                                 anchors.right: parent.right
-                                                font.pixelSize: 34
+                                                font.pixelSize: __theme.scheduleViewTitlePixelSize
                                                 wrapMode: Text.WordWrap
                                                 text: modelData.title
                                                 Utils.Fill { color: index%2===0?"blue":"green" }

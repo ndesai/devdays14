@@ -11,4 +11,3 @@ Text {
     }
     font.pixelSize: 34
 }
-

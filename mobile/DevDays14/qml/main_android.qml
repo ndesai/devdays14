@@ -1,6 +1,5 @@
 import QtQuick 2.3
-import QtQuick.Controls 1.2
-import QtQuick.Window 2.1
+import QtQuick.Controls 1.2 as QC
 import com.iktwo.components 1.0 as IC
 import "android" as Android
 import "utils" as Utils
@@ -22,13 +21,14 @@ Utils.BaseWindow {
     ]
 
     property int currentResolution: 5
+
     property bool isScreenPortrait: height >= width
 
     visible: true
     width: resolutions[currentResolution]["width"]
     height: resolutions[currentResolution]["height"]
 
-    StackView {
+    QC.StackView {
         id: stackView
         initialItem: tutorialPage
     }
