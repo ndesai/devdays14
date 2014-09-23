@@ -27,12 +27,6 @@ Utils.BaseWindow {
     width: resolutions[currentResolution]["width"]
     height: resolutions[currentResolution]["height"]
 
-    Android.ActionBar {
-        id: actionBar
-        title: "<html><font color=\"#322e2d\">Qt DEVELOPER DAYS </font> <font color=\"#5c9c1c\">2014</font></html>"
-        isScreenPortrait: superRoot.isScreenPortrait
-    }
-
     StackView {
         id: stackView
         initialItem: tutorialPage
@@ -43,17 +37,13 @@ Utils.BaseWindow {
         Android.TutorialPage { }
     }
 
-    Component.onCompleted: {
-        Theme.titleBarColor = "#f3f3f3"
-        Theme.titleBarTextColor = "#ffffff"
-
-        ui.showMessage("test")
+    Android.ActionBar {
+        id: actionBar
+        title: "<html><font color=\"#322e2d\">Qt DEVELOPER DAYS </font> <font color=\"#5c9c1c\">2014</font></html>"
+        isScreenPortrait: superRoot.isScreenPortrait
     }
 
-
     Loader {
-        id: _Loader
-
         anchors {
             top: actionBar.bottom
             bottom: parent.bottom
@@ -67,5 +57,12 @@ Utils.BaseWindow {
             item.header.height = 0
             item.header.visible = false
         }
+    }
+
+    Component.onCompleted: {
+        Theme.titleBarColor = "#f3f3f3"
+        Theme.titleBarTextColor = "#ffffff"
+
+        ui.showMessage("test")
     }
 }
