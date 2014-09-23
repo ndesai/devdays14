@@ -66,10 +66,6 @@ Item {
                     target: _config
                     region: "north-america"
                 }
-                PropertyChanges {
-                    target: _Image_Logo
-                    source: "img/logo-header-northamerica.png"
-                }
             }
         ]
         transitions: [
@@ -95,16 +91,16 @@ Item {
         Image {
             id: _Image_Logo
             anchors.centerIn: parent
-            source: "img/logo-header-europe.png"
+            source: "img/logo-header.png"
             Utils.ClickGuard {
                 enabled: !_Timer_Debouncer.running
                 onClicked: _StateGroup_Region.state = _StateGroup_Region.state === "" ?
                                "northAmerica"
                              : ""
-                Timer {
-                    id: _Timer_Debouncer
-                    interval: 10000
-                }
+            }
+            Timer {
+                id: _Timer_Debouncer
+                interval: 10000
             }
         }
         z: 2
@@ -126,10 +122,21 @@ Item {
         z: 1
     }
 
+    // Sheets
+
+    Views.TrackDetailSheet {
+        id: _TrackDetailSheet
+        z: 2
+    }
+
+
+    // Tab Bar Controller
+    // Footer
+
     Views.TabBarController {
         id: _TabBarController
         // A.k.a. the footer
-        z: 2
+        z: 3
     }
 
 

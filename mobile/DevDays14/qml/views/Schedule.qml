@@ -3,6 +3,20 @@ import "../utils" as Utils
 Utils.BaseTabBarPage {
     id: root
 
+    function trackDetailClicked(trackObject)
+    {
+        var trackDetailObject = JSON.parse(JSON.stringify(__models.track[trackObject.id]))
+        try {
+            trackDetailObject.presentation.track.color = trackObject.color
+            trackDetailObject.session = trackObject.session
+        } catch (ex)
+        {
+            console.warn(ex)
+        }
+
+        _TrackDetailSheet.openWithObject(trackDetailObject);
+    }
+
     Rectangle {
         id: _Rectangle_DateView
         anchors.left: parent.left
@@ -106,6 +120,7 @@ Utils.BaseTabBarPage {
                         model: modelData.sessions
                         delegate: Item {
                             id: _Item_ScheduleDelegate
+                            property variant dataModel : modelData
                             width: _Column_Sessions.width
                             height: _Rectangle_SessionTime.height + _Column_Tracks.height
                             //                            clip: true
@@ -212,8 +227,10 @@ Utils.BaseTabBarPage {
                                         Utils.ClickGuard {
                                             id: _ClickGuard_Track
                                             onClicked: {
-                                                console.log(JSON.stringify(_Rectangle_Track.trackDetail))
-                                                console.log(JSON.stringify(__models.track[modelData.id], null, 2))
+                                                var trackObject = JSON.parse(JSON.stringify(modelData))
+                                                trackObject.color = _Rectangle_TrackColor.color
+                                                trackObject.session = _Item_ScheduleDelegate.dataModel.date.formatted
+                                                root.trackDetailClicked(trackObject)
                                             }
                                         }
 
