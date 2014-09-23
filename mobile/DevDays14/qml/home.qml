@@ -1,21 +1,57 @@
-import QtQuick 2.0
+import QtQuick 2.3
 import "views" as Views
 import "utils" as Utils
 
 Item {
     id: root
-    width: 750
-    height: 1334
+
+    property alias header: _Header
+
+    height: Qt.platform.os === "ios" ? 750 : parent.height
+    width:  Qt.platform.os === "ios" ? 1334 : parent.width
 
     property alias __theme : _QtObject_Theme
+
     QtObject {
         id: _QtObject_Theme
+
         property color qtColorLightGreen : "#7fc438"
         property color qtColorDarkGreen : "#026426"
         property color lightGrey : "#f3f3f3"
         property color lightGreyAccent : "#d1d1d0"
         property color lightGreyAccentSecondary : "#eeeeee"
+        property alias fontFamily: font.name
     }
+
+    StateGroup {
+        id: _StateGroup_Theme
+
+        state: "android"
+
+        states: [
+            State {
+                name: "ios"
+                when: Qt.platform.os === "ios"
+                PropertyChanges { target: fontI; source: "Avenir Next" }
+                PropertyChanges { target: fontL; source: "Avenir Next" }
+                PropertyChanges { target: fontLI; source: "Avenir Next" }
+                PropertyChanges { target: font; source: "Avenir Next" }
+            },
+            State {
+                name: "android"
+                when: Qt.platform.os === "android"
+                PropertyChanges { target: fontI; source: "qrc:/fonts/resources/fonts/Muli-Italic.ttf" }
+                PropertyChanges { target: fontL; source: "qrc:/fonts/resources/fonts/Muli-Light.ttf" }
+                PropertyChanges { target: fontLI; source: "qrc:/fonts/resources/fonts/Muli-LightItalic.ttf" }
+                PropertyChanges { target: font; source: "qrc:/fonts/resources/fonts/Muli-Regular.ttf" }
+            }
+        ]
+    }
+
+    FontLoader { id: fontI }
+    FontLoader { id: fontL }
+    FontLoader { id: fontLI }
+    FontLoader { id: font }
 
     property alias _config : _QtObject_Config
     QtObject {
@@ -116,8 +152,6 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: _TabBarController.top
-
-
 
         Views.Schedule {
             id: _Schedule

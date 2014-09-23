@@ -1,32 +1,63 @@
 <RCC>
-	<qresource prefix="/">
-		<file>qml/dev.qml</file>
-		<file>qml/home.qml</file>
-		<file>qml/img/icon-calendar.png</file>
-		<file>qml/img/icon-list.png</file>
-		<file>qml/img/logo-header-europe.png</file>
-		<file>qml/img/logo-header-northamerica.png</file>
-		<file>qml/img/triangular.png</file>
-		<file>qml/main_ios.qml</file>
-		<file>qml/utils/AccentBottom.qml</file>
-		<file>qml/utils/AccentLeft.qml</file>
-		<file>qml/utils/AccentRight.qml</file>
-		<file>qml/utils/AccentTop.qml</file>
-		<file>qml/utils/BaseButtonTheme.qml</file>
-		<file>qml/utils/BaseIcon.qml</file>
-		<file>qml/utils/BaseTabBarPage.qml</file>
-		<file>qml/utils/BaseWindow.qml</file>
-		<file>qml/utils/ClickGuard.qml</file>
-		<file>qml/utils/Fill.qml</file>
-		<file>qml/utils/Platform.qml</file>
-		<file>qml/utils/PlatformiOS.qml</file>
-		<file>qml/utils/RootItem.qml</file>
-		<file>qml/utils/SafeLoader.qml</file>
-		<file>qml/utils/TabBarButton.qml</file>
-		<file>qml/utils/TabBarController.qml</file>
-		<file>qml/views/Header.qml</file>
-		<file>qml/views/Label.qml</file>
-		<file>qml/views/Schedule.qml</file>
-		<file>qml/views/TabBarController.qml</file>
-	</qresource>
+    <qresource prefix="/">
+        <file>qml/dev.qml</file>
+        <file>qml/home.qml</file>
+        <file>qml/img/icon-calendar.png</file>
+        <file>qml/img/icon-list.png</file>
+        <file>qml/img/logo-header-europe.png</file>
+        <file>qml/img/logo-header-northamerica.png</file>
+        <file>qml/img/triangular.png</file>
+        <file>qml/main_ios.qml</file>
+        <file>qml/utils/AccentBottom.qml</file>
+        <file>qml/utils/AccentLeft.qml</file>
+        <file>qml/utils/AccentRight.qml</file>
+        <file>qml/utils/AccentTop.qml</file>
+        <file>qml/utils/BaseButtonTheme.qml</file>
+        <file>qml/utils/BaseIcon.qml</file>
+        <file>qml/utils/BaseTabBarPage.qml</file>
+        <file>qml/utils/BaseWindow.qml</file>
+        <file>qml/utils/ClickGuard.qml</file>
+        <file>qml/utils/Fill.qml</file>
+        <file>qml/utils/Platform.qml</file>
+        <file>qml/utils/PlatformiOS.qml</file>
+        <file>qml/utils/RootItem.qml</file>
+        <file>qml/utils/SafeLoader.qml</file>
+        <file>qml/utils/TabBarButton.qml</file>
+        <file>qml/utils/TabBarController.qml</file>
+        <file>qml/views/Header.qml</file>
+        <file>qml/views/Label.qml</file>
+        <file>qml/views/Schedule.qml</file>
+        <file>qml/views/TabBarController.qml</file>
+        <file>qml/main_android.qml</file>
+        <file>qml/android/TutorialPage.qml</file>
+        <file>qml/android/Arrow.qml</file>
+        <file>qml/android/ActionBar.qml</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file alias="icon">resources/images/uhd-icon.png</file>
+    </qresource>
+    <qresource prefix="/images/ldpi">
+        <file alias="icon">android/res/drawable-ldpi/icon.png</file>
+    </qresource>
+    <qresource prefix="/images/mdpi">
+        <file alias="icon">android/res/drawable-mdpi/icon.png</file>
+    </qresource>
+    <qresource prefix="/images/hdpi">
+        <file alias="icon">android/res/drawable-hdpi/icon.png</file>
+    </qresource>
+    <qresource prefix="/images/xhdpi">
+        <file alias="icon">android/res/drawable-xhdpi/icon.png</file>
+    </qresource>
+    <qresource prefix="/images/xxhdpi">
+        <file alias="icon">android/res/drawable-xxhdpi/icon.png</file>
+    </qresource>
+    <qresource prefix="/images/xxxhdpi">
+        <file alias="icon">android/res/drawable-xxxhdpi/icon.png</file>
+    </qresource>
+    <qresource prefix="/fonts">
+        <file>resources/fonts/Muli-Regular.ttf</file>
+        <file>resources/fonts/Muli-LightItalic.ttf</file>
+        <file>resources/fonts/Muli-Light.ttf</file>
+        <file>resources/fonts/Muli-Italic.ttf</file>
+    </qresource>
 </RCC>
