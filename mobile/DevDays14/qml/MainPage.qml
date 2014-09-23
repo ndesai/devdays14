@@ -10,6 +10,11 @@ Item {
     height: parent.height
     width: parent.width
 
+    FontLoader { id: muliFontI; source: "qrc:/fonts/resources/fonts/Muli-Italic.ttf" }
+    FontLoader { id: muliFontL; source: "qrc:/fonts/resources/fonts/Muli-Light.ttf" }
+    FontLoader { id: muliFontIL; source: "qrc:/fonts/resources/fonts/Muli-LightItalic.ttf" }
+    FontLoader { id: muliFont; source: "qrc:/fonts/resources/fonts/Muli-Regular.ttf" }
+
     QtObject {
         id: _QtObject_Theme
         property color qtColorLightGreen : "#7fc438"

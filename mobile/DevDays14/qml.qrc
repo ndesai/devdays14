@@ -54,4 +54,10 @@
     <qresource prefix="/images/xxxhdpi">
         <file alias="icon">android/res/drawable-xxxhdpi/icon.png</file>
     </qresource>
+    <qresource prefix="/fonts">
+        <file>resources/fonts/Muli-Regular.ttf</file>
+        <file>resources/fonts/Muli-LightItalic.ttf</file>
+        <file>resources/fonts/Muli-Light.ttf</file>
+        <file>resources/fonts/Muli-Italic.ttf</file>
+    </qresource>
 </RCC>
