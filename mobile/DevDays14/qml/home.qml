@@ -11,8 +11,8 @@ Item {
 
     property alias header: _Header
 
-    height: Qt.platform.os === "ios" ? 750 : parent.height
-    width:  Qt.platform.os === "ios" ? 1334 : parent.width
+    width:  parent.width
+    height: parent.height
 
     property alias __theme : _QtObject_Theme
 
@@ -38,16 +38,18 @@ Item {
     StateGroup {
         id: _StateGroup_Theme
 
-        state: "android"
-
         states: [
             State {
                 name: "ios"
                 when: Qt.platform.os === "ios"
-                PropertyChanges { target: fontI; source: "Avenir Next" }
-                PropertyChanges { target: fontL; source: "Avenir Next" }
-                PropertyChanges { target: fontLI; source: "Avenir Next" }
-                PropertyChanges { target: font; source: "Avenir Next" }
+                      || Qt.platform.os === "osx"
+                      || Qt.platform.os === "mac"
+                PropertyChanges { target: __theme; fontFamily: "Avenir Next" }
+                PropertyChanges {
+                    target: root
+                    width: 750
+                    height: 1334
+                }
             },
             State {
                 name: "android"
@@ -56,6 +58,7 @@ Item {
                 PropertyChanges { target: fontL; source: "qrc:/fonts/resources/fonts/Muli-Light.ttf" }
                 PropertyChanges { target: fontLI; source: "qrc:/fonts/resources/fonts/Muli-LightItalic.ttf" }
                 PropertyChanges { target: font; source: "qrc:/fonts/resources/fonts/Muli-Regular.ttf" }
+                PropertyChanges { target: __theme; fontFamily: font.name }
                 PropertyChanges { target: __theme; dateViewHeight: Math.ceil(DD14.ScreenValues.dp * (DD14.ScreenValues.isTablet ? 56 : (isScreenPortrait ? 48 : 40))) * 0.78 }
                 PropertyChanges { target: __theme; dateViewPixelSize: 14 * DD14.ScreenValues.dp }
                 PropertyChanges { target: __theme; scheduleViewPixelSize: 16 * DD14.ScreenValues.dp }
