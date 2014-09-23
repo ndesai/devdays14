@@ -1,9 +1,9 @@
 import QtQuick 2.3
-import QtQuick.Controls 1.2
-import QtQuick.Window 2.1
-import com.iktwo.components 1.0
+import QtQuick.Controls 1.2 as QC
+import com.iktwo.components 1.0 as IC
 import "android" as Android
 import "utils" as Utils
+import DevDays14 1.0 as DD14
 
 Utils.BaseWindow {
     id: superRoot
@@ -21,13 +21,14 @@ Utils.BaseWindow {
     ]
 
     property int currentResolution: 5
+
     property bool isScreenPortrait: height >= width
 
     visible: true
     width: resolutions[currentResolution]["width"]
     height: resolutions[currentResolution]["height"]
 
-    StackView {
+    QC.StackView {
         id: stackView
         initialItem: tutorialPage
     }
@@ -60,9 +61,8 @@ Utils.BaseWindow {
     }
 
     Component.onCompleted: {
-        Theme.titleBarColor = "#f3f3f3"
-        Theme.titleBarTextColor = "#ffffff"
+        IC.Theme.titleBarColor = "#f3f3f3"
 
-        ui.showMessage("test")
+        DD14.ScreenValues.showMessage("test")
     }
 }

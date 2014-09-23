@@ -3,7 +3,7 @@ TEMPLATE = app
 QT += qml quick widgets
 
 SOURCES += main.cpp \
-    src/uivalues.cpp
+    src/screenvalues.cpp
 
 RESOURCES += qml.qrc
 
@@ -36,4 +36,4 @@ lupdate_only{
 }
 
 HEADERS += \
-    src/uivalues.h
+    src/screenvalues.h
