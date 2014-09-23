@@ -19,7 +19,7 @@ QRC=qml.qrc
 	echo "<RCC>"
 	echo -ne '\t'
 	echo "<qresource prefix=\"/\">"
-	for i in `find ${QMLBASEDIR} -type f`; 
+	for i in `find ${QMLBASEDIR} -type f | grep -v .DS_Store`; 
 		do
 			echo -ne '\t\t'
 			echo "<file>${i}</file>"
