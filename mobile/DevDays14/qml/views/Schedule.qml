@@ -5,17 +5,25 @@ Utils.BaseTabBarPage {
 
     function trackDetailClicked(trackObject)
     {
-        var trackDetailObject = JSON.parse(JSON.stringify(__models.track[trackObject.id]))
+
+        function isDataSufficient(tdo)
+        {
+            return tdo.presentation.abstract !== ""
+        }
+
         try {
+            var trackDetailObject = JSON.parse(JSON.stringify(_Model.track[trackObject.id]))
             trackDetailObject.id = trackObject.id
             trackDetailObject.presentation.track.color = trackObject.color
             trackDetailObject.session = trackObject.session
+            if(isDataSufficient(trackDetailObject))
+            {
+                _TrackDetailSheet.openWithObject(trackDetailObject);
+            }
         } catch (ex)
         {
-            console.warn(ex)
+            console.warn("track detail data does not exist")
         }
-
-        _TrackDetailSheet.openWithObject(trackDetailObject);
     }
 
     Rectangle {
@@ -40,8 +48,8 @@ Utils.BaseTabBarPage {
             onCurrentIndexChanged: {
                 _ListView_ScheduleView.currentIndex = currentIndex
             }
-            model: __models.schedule && __models.schedule.schedule ?
-                       __models.schedule.schedule
+            model: _Model.schedule && _Model.schedule.schedule ?
+                       _Model.schedule.schedule
                      : 0
 
             delegate: Item {
@@ -162,7 +170,7 @@ Utils.BaseTabBarPage {
                                     model: modelData.tracks
                                     delegate: Rectangle {
                                         id: _Rectangle_Track
-                                        property variant trackDetail : __models.legend[modelData.track] || { }
+                                        property variant trackDetail : _Model.legend[modelData.track] || { }
                                         height: Math.max(80, _Column_TrackInformation.height + 30)
                                         width: _Column_Tracks.width
                                         color: _ClickGuard_Track.pressed ? "#dddddd" : "#ffffff"
@@ -189,9 +197,9 @@ Utils.BaseTabBarPage {
                                         Column {
                                             id: _Column_TrackInformation
                                             anchors.left: _Rectangle_TrackColor.right
-                                            anchors.right: parent.right
+                                            anchors.right: _BaseIcon_Favorite.left
                                             anchors.leftMargin: 20
-                                            anchors.rightMargin: 30
+                                            anchors.rightMargin: 20
                                             anchors.verticalCenter: parent.verticalCenter
                                             Label {
                                                 id: _Label_TrackTitle
@@ -226,8 +234,37 @@ Utils.BaseTabBarPage {
                                                 color: "#525252"
                                             }
                                         }
+
+                                        Utils.BaseIcon {
+                                            id: _BaseIcon_Favorite
+                                            anchors.centerIn: undefined
+                                            anchors.right: parent.right
+                                            anchors.rightMargin: 30
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            color: __theme.qtColorLightGreen
+                                            source: "../img/icon-bookmark-hl.png"
+                                            visible: _Model.favoritesModelContainsTrack(modelData.id)
+                                            Connections {
+                                                target: _Model
+                                                onAddedFavoritesTrack: {
+                                                    if(trackId === modelData.id)
+                                                    {
+                                                        _BaseIcon_Favorite.visible = true
+                                                    }
+                                                }
+                                                onRemovedFavoritesTrack: {
+                                                    if(trackId === modelData.id)
+                                                    {
+                                                        _BaseIcon_Favorite.visible = false
+                                                    }
+                                                }
+                                            }
+                                        }
+
                                         Utils.ClickGuard {
                                             id: _ClickGuard_Track
+                                            enabled: modelData.presenter
+                                                     && modelData.presenter !== ""
                                             onClicked: {
                                                 var trackObject = JSON.parse(JSON.stringify(modelData))
                                                 trackObject.color = _Rectangle_TrackColor.color

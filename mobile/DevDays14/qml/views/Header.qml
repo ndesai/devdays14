@@ -6,7 +6,6 @@ Rectangle {
     default property alias content : _Item_Container.data
     property alias leftContent : _Item_ContainerLeft.data
     property alias rightContent : _Item_ContainerRight.data
-
     property bool enableLeftAndRightContainers : false
 
     anchors.top: parent.top
@@ -42,7 +41,7 @@ Rectangle {
         anchors.topMargin: 40
         anchors.left: parent.left
         anchors.bottom: parent.bottom
-        width: 120
+        width: 110
         Utils.Fill { color: "yellow" }
     }
 
@@ -52,7 +51,7 @@ Rectangle {
         anchors.topMargin: 40
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        width: 120
+        width: 110
         Utils.Fill { color: "red" }
     }
 }

@@ -13,14 +13,11 @@ Utils.TabBarController {
             sourceComponent: _Schedule
         },
         {
-            icon : "../img/icon-list.png",
-            sourceComponent: _Schedule
-        },
-        {
-            icon : "../img/icon-list.png",
-            sourceComponent: _Schedule
+            icon : "../img/icon-info.png",
+            sourceComponent: _Information
         }
     ]
+
     Rectangle {
         anchors.top: parent.top
         anchors.left: parent.left

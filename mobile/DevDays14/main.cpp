@@ -10,6 +10,7 @@
 
 #if defined(Q_OS_IOS)
 Q_IMPORT_PLUGIN(PlatformPlugin)
+Q_IMPORT_PLUGIN(ModelsPlugin)
 #endif
 
 static QObject *screen_values_provider(QQmlEngine *engine, QJSEngine *scriptEngine)

@@ -91,47 +91,30 @@ Item {
         property url apiSchedule : 'http://api.app.st/devdays14/$1/schedule'.replace('$1', region)
         property url apiTracks : 'http://api.app.st/devdays14/$1/tracks'.replace('$1', region)
         property url apiLegend : 'http://api.app.st/devdays14/$1/legend'.replace('$1', region)
+        property url apiInformation : 'http://api.app.st/devdays14/$1/information'.replace('$1', region)
     }
 
-    property alias __models : _QtObject_Models
-    QtObject {
-        id: _QtObject_Models
-        property variant schedule
-        property variant track
-        property variant legend
 
-        function reload()
-        {
-            _Timer_Debouncer.restart()
+    Utils.Model { id: _Model }
 
-            webRequest(_config.apiLegend, function(response, request, requestUrl) {
-
-                var legend = new Object
-                response.map(function(e) {
-                    legend[e.id] = e
-                })
-                __models.legend = legend
-
-                webRequest(_config.apiSchedule, function(response, request, requestUrl) {
-                    __models.schedule = response
-                    _Timer_Debouncer.stop()
-                })
-                webRequest(_config.apiTracks, function(response, request, requestUrl) {
-                    __models.track = response
-                    _Timer_Debouncer.stop()
-                })
-            })
-        }
-    }
 
     StateGroup {
         id: _StateGroup_Region
+        state: ""
         states: [
             State {
                 name: "northAmerica"
                 PropertyChanges {
                     target: _config
                     region: "north-america"
+                }
+                PropertyChanges {
+                    target: _HeaderRegionButton_NorthAmerica
+                    active: true
+                }
+                PropertyChanges {
+                    target: _HeaderRegionButton_Europe
+                    active: false
                 }
             }
         ]
@@ -140,7 +123,8 @@ Item {
                 from: "*"
                 to: "*"
                 SequentialAnimation {
-                    ScriptAction { script: __models.reload() }
+                    PropertyAction { target: _config; property: "region" }
+                    ScriptAction { script: _Model.reload() }
                 }
             }
         ]
@@ -157,7 +141,9 @@ Item {
         id: _Header
         Image {
             id: _Image_Logo
-            anchors.centerIn: parent
+            anchors.left: parent.left
+            anchors.leftMargin: 20
+            anchors.verticalCenter: parent.verticalCenter
             source: "img/logo-header.png"
             Utils.ClickGuard {
                 enabled: !_Timer_Debouncer.running
@@ -168,6 +154,25 @@ Item {
             Timer {
                 id: _Timer_Debouncer
                 interval: 10000
+            }
+        }
+        Row {
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            anchors.rightMargin: 20
+            layoutDirection: Qt.RightToLeft
+            spacing: 20
+            Views.HeaderRegionButton {
+                id: _HeaderRegionButton_NorthAmerica
+                text: qsTr("North America")
+                active: false
+                onClicked: _StateGroup_Region.state = "northAmerica"
+            }
+            Views.HeaderRegionButton {
+                id: _HeaderRegionButton_Europe
+                text: qsTr("Europe")
+                active: true
+                onClicked: _StateGroup_Region.state = ""
             }
         }
         z: 2
@@ -183,6 +188,10 @@ Item {
         Behavior on scale { NumberAnimation { duration: 350; easing.type: Easing.OutCubic} }
         Views.Schedule {
             id: _Schedule
+            controller: _TabBarController
+        }
+        Views.Information {
+            id: _Information
             controller: _TabBarController
         }
         z: 1
@@ -211,28 +220,9 @@ Item {
         id: _TabBarController
         // A.k.a. the footer
         z: 3
-    }
-
-
-    // Temporary model retriever
-
-    function webRequest(requestUrl, callback){
-        var request = new XMLHttpRequest();
-        request.onreadystatechange = function() {
-            var response;
-            if(request.readyState === XMLHttpRequest.DONE) {
-                if(request.status === 200) {
-                    response = JSON.parse(request.responseText);
-                } else {
-                    console.log("Server: " + request.status + "- " + request.statusText);
-                    response = ""
-                }
-                callback(response, request, requestUrl)
-            }
+        onHideAllPages: {
+            // Close all sheets
+            _TrackDetailSheet.close()
         }
-        request.open("GET", requestUrl, true); // only async supported
-        request.send();
     }
-
-    Component.onCompleted: _StateGroup_Region.state = "northAmerica"
 }

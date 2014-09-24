@@ -18,43 +18,35 @@ Slide {
                 onClicked: root.close()
             }
             rightContent: Utils.ClickGuard {
-                id: _ClickGuard_HeartButton
-                property bool isFavorite : false
-                Rectangle {
-                    id: _Rectangle_HeartCircle
+                id: _ClickGuard_FavoriteButton
+                property bool isFavorite : _Model.favoritesModelContainsTrack(root.getProperty('id'))
+                Utils.BaseIcon {
+                    id: _BaseIcon_Bookmark
+                    source: "../img/icon-bookmark.png"
+                    color: "#222222"
                     anchors.centerIn: parent
-                    height: parent.height - 16
-                    width: height
-                    radius: width / 2
-                    color: "transparent"
-                    layer.enabled: true
-                    layer.smooth: true
-                    Utils.BaseIcon {
-                        id: _BaseIcon_Heart
-                        source: "../img/icon-heart.png"
-                        color: "#222222"
-                        anchors.centerIn: parent
-                    }
+                    width: 52
                 }
                 states: [
                     State {
-                        when: _ClickGuard_HeartButton.isFavorite
+                        when: _ClickGuard_FavoriteButton.isFavorite
                         PropertyChanges {
-                            target: _BaseIcon_Heart
-                            color: "#ffffff"
-                        }
-                        PropertyChanges {
-                            target: _Rectangle_HeartCircle
+                            target: _BaseIcon_Bookmark
                             color: __theme.qtColorLightGreen
-
+                            source: "../img/icon-bookmark-hl.png"
                         }
                     }
                 ]
                 onClicked: {
                     isFavorite ^= 1
+                    console.log("isFavorite? " + isFavorite + " & " + root.getProperty('id'))
+                    console.log(JSON.stringify(root.dataObject, null, 2))
                     if(isFavorite)
                     {
-                        console.log("add " + root.getProperty('id') + " to favorites")
+                        _Model.insertFavorite(root.dataObject)
+                    } else
+                    {
+                        _Model.removeFavorite(root.dataObject)
                     }
                 }
             }
@@ -163,7 +155,9 @@ Slide {
                                 sourceSize.width: width
                                 sourceSize.height: height
                                 smooth: true
-                                source: root.getProperty('presenter').image || ""
+                                source: Qt.platform.os === "ios" ?
+                                            "../img/avatar-default.jpg" :
+                                            root.getProperty('presenter').image.replace("https:", "http:") || ""
                                 onStatusChanged: {
                                     if(status === Image.Error)
                                     {
