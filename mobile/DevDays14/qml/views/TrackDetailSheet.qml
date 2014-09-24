@@ -65,6 +65,7 @@ Slide {
                 verticalAlignment: Text.AlignVCenter
                 elide: Text.ElideRight
                 text: root.getProperty('session')
+                font.pixelSize: __theme.detailPixelSize
                 Utils.Fill { color: "blue" }
             }
             Utils.ClickGuard {
@@ -96,7 +97,7 @@ Slide {
                         id: _Label_Title
                         width: parent.width
                         wrapMode: Text.WordWrap
-                        font.pixelSize: 40
+                        font.pixelSize: __theme.detailTitlePixelSize
                         text: root.getProperty('presentation').title
                     }
                     Utils.VerticalSpacer { height: 30 }
@@ -124,6 +125,7 @@ Slide {
                             anchors.verticalCenter: _Rectangle_TrackColor.verticalCenter
                             text: root.getProperty('presentation').track.title
                             color: "#222222"
+                            font.pixelSize: __theme.detailPixelSize
                         }
                     }
                     Utils.VerticalSpacer { height: 30; visible: _Row_TrackColor.visible }
@@ -131,7 +133,7 @@ Slide {
                         id: _Label_Abstract
                         width: parent.width
                         wrapMode: Text.WordWrap
-                        font.pixelSize: 30
+                        font.pixelSize: __theme.detailAbstractPixelSize
                         text: root.getProperty('presentation').abstract
                     }
                     Utils.VerticalSpacer { height: 60 }
@@ -182,7 +184,7 @@ Slide {
                                 wrapMode: Text.WordWrap
                                 elide: Text.ElideRight
                                 maximumLineCount: 2
-                                font.pixelSize: 36
+                                font.pixelSize: __theme.detailPresenterPixelSize
                                 visible: text!==""
                                 text: root.getProperty('presenter').name
                                 lineHeight: 0.85
@@ -197,6 +199,7 @@ Slide {
                                 font.italic: true
                                 visible: text!==""
                                 text: root.getProperty('presenter').organization
+                                font.pixelSize: __theme.detailPixelSize
                                 Utils.Fill { color: "purple" }
                             }
                         }
@@ -206,7 +209,7 @@ Slide {
                         id: _Label_PresenterBio
                         width: parent.width
                         wrapMode: Text.WordWrap
-                        font.pixelSize: 30
+                        font.pixelSize: __theme.detailAbstractPixelSize
                         text: root.getProperty('presenter').bio
                     }
                 }

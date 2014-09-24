@@ -3,7 +3,6 @@ import "views" as Views
 import "utils" as Utils
 import DevDays14 1.0 as DD14
 
-
 Item {
     id: root
 
@@ -26,6 +25,8 @@ Item {
         property color lightGreyAccentSecondary : "#eeeeee"
         property alias fontFamily: font.name
 
+        property int headerHeight: 128
+
         property int dateViewHeight: 100
         property int dateViewPixelSize: 34
 
@@ -33,6 +34,11 @@ Item {
         property int scheduleViewTitlePixelSize: 34
         property int colorIndicatorWidth: 10
         property int colorIndicatorBorderWidth: 2
+
+        property int detailPixelSize: 34
+        property int detailTitlePixelSize: 40
+        property int detailAbstractPixelSize: 30
+        property int detailPresenterPixelSize: 36
     }
 
     StateGroup {
@@ -65,6 +71,10 @@ Item {
                 PropertyChanges { target: __theme; scheduleViewTitlePixelSize: 17 * DD14.ScreenValues.dp }
                 PropertyChanges { target: __theme; colorIndicatorWidth: 6 * DD14.ScreenValues.dp }
                 PropertyChanges { target: __theme; colorIndicatorBorderWidth: 1 * DD14.ScreenValues.dp }
+                PropertyChanges { target: __theme; detailPixelSize: 16 * DD14.ScreenValues.dp }
+                PropertyChanges { target: __theme; detailTitlePixelSize: 18 * DD14.ScreenValues.dp }
+                PropertyChanges { target: __theme; detailAbstractPixelSize: 14 * DD14.ScreenValues.dp }
+                PropertyChanges { target: __theme; detailPresenterPixelSize: 16 * DD14.ScreenValues.dp }
             }
         ]
     }
