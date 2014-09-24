@@ -26,6 +26,7 @@ QRC=qml.qrc
 	done;
 	echo -ne '\t'
 	echo "</qresource>"
+	cat extra.qrc
 	echo "</RCC>"
 } >> ${TMPQRC}
 

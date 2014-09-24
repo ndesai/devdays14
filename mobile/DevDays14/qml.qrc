@@ -6,8 +6,8 @@
 		<file>qml/dev.qml</file>
 		<file>qml/home.qml</file>
 		<file>qml/img/icon-back.png</file>
-		<file>qml/img/icon-heart.png</file>
 		<file>qml/img/icon-calendar.png</file>
+		<file>qml/img/icon-heart.png</file>
 		<file>qml/img/icon-list.png</file>
 		<file>qml/img/logo-header-europe.png</file>
 		<file>qml/img/logo-header-northamerica.png</file>
@@ -70,6 +70,5 @@
         <file>resources/fonts/Muli-Light.ttf</file>
         <file>resources/fonts/Muli-Italic.ttf</file>
         <file>qml/img/icon-heart.png</file>
-        <file>qml/views/UnderSheetDarkener.qml</file>
     </qresource>
 </RCC>
