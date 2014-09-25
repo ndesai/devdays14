@@ -24,6 +24,7 @@ Item {
         property color lightGreyAccent : "#d1d1d0"
         property color lightGreyAccentSecondary : "#eeeeee"
         property alias fontFamily: font.name
+        property int topMargin: 40
 
         property int headerHeight: 128
         property int headerRegionButtonFontSize : 28
@@ -40,6 +41,11 @@ Item {
         property int detailTitlePixelSize: 40
         property int detailAbstractPixelSize: 30
         property int detailPresenterPixelSize: 36
+
+        property int informationAddressPixelSize: 36
+        property int informationTitlePixelSize: 36
+        property int informationDatePixelSize: 34
+        property int informationVenueDescriptionPixelSize: 28
     }
 
     property bool isApple : Qt.platform.os === "ios"
@@ -87,6 +93,11 @@ Item {
                 PropertyChanges { target: __theme; detailTitlePixelSize: 18 * DD14.ScreenValues.dp }
                 PropertyChanges { target: __theme; detailAbstractPixelSize: 14 * DD14.ScreenValues.dp }
                 PropertyChanges { target: __theme; detailPresenterPixelSize: 16 * DD14.ScreenValues.dp }
+                PropertyChanges { target: __theme; informationAddressPixelSize: 17 * DD14.ScreenValues.dp }
+                PropertyChanges { target: __theme; informationTitlePixelSize: 17 * DD14.ScreenValues.dp }
+                PropertyChanges { target: __theme; informationDatePixelSize: 15 * DD14.ScreenValues.dp }
+                PropertyChanges { target: __theme; informationVenueDescriptionPixelSize: 14 * DD14.ScreenValues.dp }
+                PropertyChanges { target: __theme; topMargin: 0 }
                 PropertyChanges {
                     target: __theme;
                     headerRegionButtonFontSize: 14 * DD14.ScreenValues.dp

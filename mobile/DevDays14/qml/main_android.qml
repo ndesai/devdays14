@@ -28,15 +28,7 @@ Utils.BaseWindow {
     width: resolutions[currentResolution]["width"]
     height: resolutions[currentResolution]["height"]
 
-    QC.StackView {
-        id: stackView
-        initialItem: tutorialPage
-    }
 
-    Component {
-        id: tutorialPage
-        Android.TutorialPage { }
-    }
 
     Android.ActionBar {
         id: actionBar
@@ -46,7 +38,7 @@ Utils.BaseWindow {
 
     Loader {
         anchors {
-            top: actionBar.bottom
+            top: parent.top
             bottom: parent.bottom
             left: parent.left
             right: parent.right
@@ -55,14 +47,12 @@ Utils.BaseWindow {
         source: "home.qml"
 
         onLoaded: {
-            item.header.height = 0
-            item.header.visible = false
+            item.header.height = Math.ceil(ScreenValues.dp * (ScreenValues.isTablet ? 56 : (isScreenPortrait ? 48 : 40)))
         }
     }
 
     Component.onCompleted: {
         IC.Theme.titleBarColor = "#f3f3f3"
 
-        DD14.ScreenValues.showMessage("test")
     }
 }
