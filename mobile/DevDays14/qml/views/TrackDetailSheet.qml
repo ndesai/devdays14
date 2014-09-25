@@ -39,8 +39,6 @@ Slide {
                 ]
                 onClicked: {
                     isFavorite ^= 1
-                    console.log("isFavorite? " + isFavorite + " & " + root.getProperty('id'))
-                    console.log(JSON.stringify(root.dataObject, null, 2))
                     if(isFavorite)
                     {
                         _Model.insertFavorite(root.dataObject)

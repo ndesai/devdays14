@@ -7,10 +7,12 @@ Item {
     signal tabClicked(variant tabObject)
     signal hideAllPages
 
+    property bool enabled : true
     property variant tabBarModel : []
     property variant activeButton : _Repeater_TabBar.count > 0 ? _Repeater_TabBar.itemAt(0) : { }
 
     property alias theme : _BaseButtonTheme
+
     Utils.BaseButtonTheme {
         id: _BaseButtonTheme
         backgroundDefaultColor: "#f3f3f3"
@@ -44,5 +46,9 @@ Item {
             }
             Component.onCompleted: if(count > 0) itemAt(0).clicked()
         }
+    }
+
+    Utils.ClickGuard {
+        visible: !root.enabled
     }
 }

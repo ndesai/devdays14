@@ -5,12 +5,12 @@ Utils.BaseTabBarPage {
 
     function getData(key)
     {
-        console.log(JSON.stringify(_Model.information))
         if(typeof _Model.information !== "undefined"
                 && typeof _Model.information[key] !== "undefined")
         {
             return _Model.information[key]
         }
+        return ""
     }
 
     Flickable {
@@ -53,7 +53,7 @@ Utils.BaseTabBarPage {
                     height: 240
                     clip: true
                     fillMode: Image.PreserveAspectCrop
-                    source: getData('location').image!==""?
+                    source: (getData('location').image||"")!==""?
                                 "../img/static/"+getData('location').image
                               : ""
                     y: Math.min((sourceSize.height - 240) / 2, 0.07*_Flickable.contentY)
@@ -65,7 +65,7 @@ Utils.BaseTabBarPage {
                 id: _Label_Address
                 width: parent.width
                 wrapMode: Text.WordWrap
-                text: getData('location').name
+                text: getData('location').name || ""
                 color: "#444444"
             }
             Utils.VerticalSpacer { height: 20 }
@@ -74,7 +74,7 @@ Utils.BaseTabBarPage {
                 width: parent.width
                 font.pixelSize: 28
                 wrapMode: Text.WordWrap
-                text: getData('location').detail
+                text: getData('location').detail || ""
             }
             Utils.VerticalSpacer { height: 30 }
             Rectangle {
@@ -128,7 +128,7 @@ Utils.BaseTabBarPage {
                 width: parent.width
                 font.pixelSize: 28
                 wrapMode: Text.WordWrap
-                text: getData('app').description
+                text: getData('app').description || ""
             }
         }
     }

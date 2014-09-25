@@ -115,6 +115,7 @@ Models.SQLiteDatabase {
         webRequest(_config.apiLegend, function(response, request, requestUrl) {
 
             var legend = new Object
+            if(!response) return
             response.map(function(e) {
                 legend[e.id] = e
             })
@@ -144,6 +145,7 @@ Models.SQLiteDatabase {
                     response = JSON.parse(request.responseText);
                 } else {
                     console.log("Server: " + request.status + "- " + request.statusText);
+                    apiStatus = Loader.Error
                     response = ""
                 }
                 callback(response, request, requestUrl)
@@ -155,7 +157,16 @@ Models.SQLiteDatabase {
 
     Component.onCompleted: {
         initialize()
-        reload()
+
+        webRequest(_config.apiRoute, function(response, request, requestUrl) {
+            if(response)
+            {
+                console.log("api version is " + response.version)
+                _config.apiBaseUrl = response.url
+            }
+            reload()
+
+        })
     }
 
 }

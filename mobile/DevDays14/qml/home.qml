@@ -104,10 +104,12 @@ Item {
     QtObject {
         id: _QtObject_Config
         property string region : 'europe'
-        property url apiSchedule : 'http://api.app.st/devdays14/$1/schedule'.replace('$1', region)
-        property url apiTracks : 'http://api.app.st/devdays14/$1/tracks'.replace('$1', region)
-        property url apiLegend : 'http://api.app.st/devdays14/$1/legend'.replace('$1', region)
-        property url apiInformation : 'http://api.app.st/devdays14/$1/information'.replace('$1', region)
+        property url apiRoute : 'http://50.116.22.180:8080/devdays14-route/route'
+        property string apiBaseUrl : 'http://api.app.st/devdays14/'
+        property url apiSchedule : '$0$1/schedule'.replace('$0', apiBaseUrl).replace('$1', region)
+        property url apiTracks : '$0$1/tracks'.replace('$0', apiBaseUrl).replace('$1', region)
+        property url apiLegend : '$0$1/legend'.replace('$0', apiBaseUrl).replace('$1', region)
+        property url apiInformation : '$0$1/information'.replace('$0', apiBaseUrl).replace('$1', region)
     }
 
 
@@ -246,6 +248,12 @@ Item {
         id: _Loading
         anchors.fill: _Item_PageContainer
         attachTo: _Item_PageContainer
+        onClicked: {
+            if(_Model.apiStatus === Loader.Error || _Model.apiStatus === Loader.Null)
+            {
+                _Model.reload()
+            }
+        }
         z: 4
     }
 
@@ -256,6 +264,7 @@ Item {
         id: _TabBarController
         // A.k.a. the footer
         z: 3
+        enabled: !_Loading.visible
         onHideAllPages: {
             // Close all sheets
             _TrackDetailSheet.close()
