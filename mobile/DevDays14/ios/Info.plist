@@ -5,15 +5,24 @@
 	<key>BuildMachineOSBuild</key>
 	<string>13E28</string>
 	<key>CFBundleDisplayName</key>
-	<string>Qt DevDays '14</string>
+	<string>DevDays '14</string>
 	<key>CFBundleExecutable</key>
 	<string>DevDays14</string>
 	<key>CFBundleGetInfoString</key>
 	<string>AppStreet</string>
 	<key>CFBundleIcons</key>
-	<dict/>
-	<key>CFBundleIcons~ipad</key>
-	<dict/>
+        <dict>
+                <key>CFBundlePrimaryIcon</key>
+                <dict>
+                        <key>CFBundleIconFiles</key>
+                        <array>
+                                <string>AppIcon40x40</string>
+                                <string>AppIcon29x29</string>
+                                <string>AppIcon60x60</string>
+                                <string>AppIcon57x57</string>
+                        </array>
+                </dict>
+        </dict>
 	<key>CFBundleIdentifier</key>
 	<string>st.app.developerdays14</string>
 	<key>CFBundleName</key>
