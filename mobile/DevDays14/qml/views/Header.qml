@@ -26,7 +26,7 @@ Rectangle {
     Item {
         id: _Item_Container
         anchors.top: parent.top
-        anchors.topMargin: 40
+        anchors.topMargin: __theme.topMargin
         anchors.bottom: parent.bottom
         anchors.left: enableLeftAndRightContainers ? _Item_ContainerLeft.right : parent.left
         anchors.right: enableLeftAndRightContainers ? _Item_ContainerRight.left : parent.right

@@ -54,7 +54,6 @@
         <file>qml/views/TabBarController.qml</file>
         <file>qml/views/TrackDetailSheet.qml</file>
         <file>qml/views/UnderSheetDarkener.qml</file>
-        <file>qml/utils/ApiObject.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="icon">resources/images/uhd-icon.png</file>

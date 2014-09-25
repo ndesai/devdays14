@@ -1,10 +1,10 @@
 import QtQuick 2.3
 import "../utils" as Utils
+
 Utils.BaseTabBarPage {
     id: root
 
-    function getData(key)
-    {
+    function getData(key) {
         console.log(JSON.stringify(_Model.information))
         if(typeof _Model.information !== "undefined"
                 && typeof _Model.information[key] !== "undefined")
@@ -29,14 +29,14 @@ Utils.BaseTabBarPage {
             Label {
                 id: _Label_Title
                 width: parent.width
-                font.pixelSize: 36
+                font.pixelSize: __theme.informationTitlePixelSize
                 wrapMode: Text.WordWrap
                 text: getData('title')
             }
             Label {
                 id: _Label_Date
                 width: parent.width
-                font.pixelSize: 34
+                font.pixelSize: __theme.informationDatePixelSize
                 wrapMode: Text.WordWrap
                 text: getData('date')
                 color: "#444444"
@@ -67,12 +67,13 @@ Utils.BaseTabBarPage {
                 wrapMode: Text.WordWrap
                 text: getData('location').name
                 color: "#444444"
+                font.pixelSize: __theme.informationAddressPixelSize
             }
             Utils.VerticalSpacer { height: 20 }
             Label {
                 id: _Label_VenueDescription
                 width: parent.width
-                font.pixelSize: 28
+                font.pixelSize: __theme.informationVenueDescriptionPixelSize
                 wrapMode: Text.WordWrap
                 text: getData('location').detail
             }
@@ -91,7 +92,7 @@ Utils.BaseTabBarPage {
             Label {
                 id: _Label_DescriptionText
                 width: parent.width
-                font.pixelSize: 34
+                font.pixelSize: __theme.informationDatePixelSize
                 wrapMode: Text.WordWrap
                 text: qsTr("About the Event")
             }
@@ -99,7 +100,7 @@ Utils.BaseTabBarPage {
             Label {
                 id: _Label_Description
                 width: parent.width
-                font.pixelSize: 28
+                font.pixelSize: __theme.informationVenueDescriptionPixelSize
                 wrapMode: Text.WordWrap
                 text: getData('description')
             }
@@ -118,7 +119,7 @@ Utils.BaseTabBarPage {
             Label {
                 id: _Label_AppDescriptionText
                 width: parent.width
-                font.pixelSize: 34
+                font.pixelSize: __theme.informationDatePixelSize
                 wrapMode: Text.WordWrap
                 text: qsTr("About this App")
             }
@@ -126,7 +127,7 @@ Utils.BaseTabBarPage {
             Label {
                 id: _Label_AppDescription
                 width: parent.width
-                font.pixelSize: 28
+                font.pixelSize: __theme.informationVenueDescriptionPixelSize
                 wrapMode: Text.WordWrap
                 text: getData('app').description
             }
