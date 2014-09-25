@@ -11,18 +11,9 @@
 	<key>CFBundleGetInfoString</key>
 	<string>AppStreet</string>
 	<key>CFBundleIcons</key>
-        <dict>
-                <key>CFBundlePrimaryIcon</key>
-                <dict>
-                        <key>CFBundleIconFiles</key>
-                        <array>
-                                <string>AppIcon40x40</string>
-                                <string>AppIcon29x29</string>
-                                <string>AppIcon60x60</string>
-                                <string>AppIcon57x57</string>
-                        </array>
-                </dict>
-        </dict>
+	<dict/>
+	<key>CFBundleIcons~ipad</key>
+	<dict/>
 	<key>CFBundleIdentifier</key>
 	<string>st.app.developerdays14</string>
 	<key>CFBundleName</key>
