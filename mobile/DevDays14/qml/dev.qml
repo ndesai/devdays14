@@ -20,12 +20,15 @@ Utils.BaseWindow {
         anchors.margins: 50
         Item {
             id: _Item_Container_iOS
-            width: 750 / 2
+            property bool largePhone : true
+//            width: largePhone ? 750 / 2 : 640 / 2
+//            height: largePhone ? 1334 / 2 : 1136 / 2
+            width:750 / 2
             height: 1334 / 2
             Loader {
                 id: _Loader_iOS
-                width: 750
-                height: 1334
+                width: parent.largePhone ? 750 : 640
+                height: parent.largePhone ? 1334 : 1136
                 anchors.left: parent.left;
                 anchors.top: parent.top
                 source: "home.qml"
@@ -47,16 +50,29 @@ Utils.BaseWindow {
                 ]
             }
         }
-        Controls.Button {
-            width: _Item_Container_iOS.width
-            height: 40
+        Column {
             anchors.top: _Item_Container_iOS.bottom
             anchors.topMargin: 25
-            text: "Show Fills"
-            onClicked: {
-                superRoot.showFills ^= 1
+            width: _Item_Container_iOS.width
+            spacing: 20
+            Controls.Button {
+                width: parent.width
+                height: 40
+                text: "Show Fills"
+                onClicked: {
+                    superRoot.showFills ^= 1
+                }
+            }
+            Controls.Button {
+                width: parent.width
+                height: 40
+                text: "Toggle Size"
+                onClicked: {
+                    _Item_Container_iOS.largePhone ^= 1
+                }
             }
         }
+
 
     }
 }

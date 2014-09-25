@@ -95,6 +95,7 @@ Models.SQLiteDatabase {
 
 
     // API data
+    property int apiStatus : Loader.Null
 
     property variant schedule
     property variant track
@@ -103,6 +104,7 @@ Models.SQLiteDatabase {
 
     function reload()
     {
+        apiStatus = Loader.Loading
         _Timer_Debouncer.restart()
 
         webRequest(_config.apiInformation, function(response, request, requestUrl) {
@@ -120,6 +122,7 @@ Models.SQLiteDatabase {
 
             webRequest(_config.apiSchedule, function(response, request, requestUrl) {
                 schedule = response
+                apiStatus = Loader.Ready
                 _Timer_Debouncer.stop()
             })
             webRequest(_config.apiTracks, function(response, request, requestUrl) {

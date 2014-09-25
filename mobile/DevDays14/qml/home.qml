@@ -26,6 +26,7 @@ Item {
         property alias fontFamily: font.name
 
         property int headerHeight: 128
+        property int headerRegionButtonFontSize : 28
 
         property int dateViewHeight: 100
         property int dateViewPixelSize: 34
@@ -41,20 +42,31 @@ Item {
         property int detailPresenterPixelSize: 36
     }
 
+    property bool isApple : Qt.platform.os === "ios"
+                          || Qt.platform.os === "osx"
+                          || Qt.platform.os === "mac"
     StateGroup {
         id: _StateGroup_Theme
-
         states: [
             State {
-                name: "ios"
-                when: Qt.platform.os === "ios"
-                      || Qt.platform.os === "osx"
-                      || Qt.platform.os === "mac"
-                PropertyChanges { target: __theme; fontFamily: "Avenir Next" }
+                name: "iphone5"
+                extend: "ios"
+                when: root.isApple && root.width === 640
                 PropertyChanges {
-                    target: root
-                    width: 750
-                    height: 1334
+                    target: __theme
+                    dateViewPixelSize: 30
+                }
+            },
+            State {
+                name: "iphone6"
+                extend: "ios"
+                when: root.isApple && root.width > 640
+            },
+            State {
+                name: "ios"
+                PropertyChanges {
+                    target: __theme;
+                    fontFamily: "Avenir Next"
                 }
             },
             State {
@@ -75,6 +87,10 @@ Item {
                 PropertyChanges { target: __theme; detailTitlePixelSize: 18 * DD14.ScreenValues.dp }
                 PropertyChanges { target: __theme; detailAbstractPixelSize: 14 * DD14.ScreenValues.dp }
                 PropertyChanges { target: __theme; detailPresenterPixelSize: 16 * DD14.ScreenValues.dp }
+                PropertyChanges {
+                    target: __theme;
+                    headerRegionButtonFontSize: 14 * DD14.ScreenValues.dp
+                }
             }
         ]
     }
@@ -95,7 +111,19 @@ Item {
     }
 
 
-    Utils.Model { id: _Model }
+    Utils.Model {
+        id: _Model
+        onApiStatusChanged: {
+            if(apiStatus === Loader.Loading)
+            {
+                _Loading.show()
+            }
+            else if(apiStatus === Loader.Ready)
+            {
+                _Loading.hide()
+            }
+        }
+    }
 
 
     StateGroup {
@@ -166,12 +194,14 @@ Item {
                 id: _HeaderRegionButton_NorthAmerica
                 text: qsTr("North America")
                 active: false
+                enabled: _Model.apiStatus === Loader.Ready
                 onClicked: _StateGroup_Region.state = "northAmerica"
             }
             Views.HeaderRegionButton {
                 id: _HeaderRegionButton_Europe
                 text: qsTr("Europe")
                 active: true
+                enabled: _Model.apiStatus === Loader.Ready
                 onClicked: _StateGroup_Region.state = ""
             }
         }
@@ -212,6 +242,12 @@ Item {
         z: 2
     }
 
+    Views.Loading {
+        id: _Loading
+        anchors.fill: _Item_PageContainer
+        attachTo: _Item_PageContainer
+        z: 4
+    }
 
     // Tab Bar Controller
     // Footer
