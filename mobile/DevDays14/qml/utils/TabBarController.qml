@@ -13,6 +13,11 @@ Item {
 
     property alias theme : _BaseButtonTheme
 
+    function clickFirstTab() {
+        if (_Repeater_TabBar.count > 0)
+            _Repeater_TabBar.itemAt(0).clicked()
+    }
+
     Utils.BaseButtonTheme {
         id: _BaseButtonTheme
         backgroundDefaultColor: "#f3f3f3"

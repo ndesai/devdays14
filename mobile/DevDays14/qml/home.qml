@@ -3,7 +3,7 @@ import "views" as Views
 import "utils" as Utils
 import DevDays14 1.0 as DD14
 
-Item {
+FocusScope {
     id: root
 
     property bool isScreenPortrait: height >= width
@@ -12,6 +12,7 @@ Item {
 
     width:  parent.width
     height: parent.height
+    focus: true
 
     property alias __theme : _QtObject_Theme
 
@@ -246,6 +247,14 @@ Item {
         onShowing: _Item_PageContainer.scale = 0.95
         onHiding: _Item_PageContainer.scale = 1.0
         z: 2
+    }
+
+    Keys.onBackPressed: {
+        if (_TrackDetailSheet.state === "")
+            _TrackDetailSheet.close()
+        else if (_Information.visible)
+            _TabBarController.clickFirstTab()
+
     }
 
     Views.TrackDetailSheet {
