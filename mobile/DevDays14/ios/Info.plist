@@ -48,6 +48,8 @@
 	<string>0511</string>
 	<key>DTXcodeBuild</key>
 	<string>5B1008</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
 	<key>MinimumOSVersion</key>
 	<string>5.0</string>
 	<key>NOTE</key>
