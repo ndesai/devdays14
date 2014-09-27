@@ -3,13 +3,14 @@ import "views" as Views
 import "utils" as Utils
 import DevDays14 1.0 as DD14
 
-FocusScope {
+Rectangle {
     id: root
 
     property bool isScreenPortrait: height >= width
 
     property alias header: _Header
 
+    color: "#ffffff"
     width:  parent.width
     height: parent.height
     focus: true
@@ -44,7 +45,7 @@ FocusScope {
         property int detailAbstractPixelSize: 30
         property int detailPresenterPixelSize: 36
 
-        property int informationAddressPixelSize: 36
+        property int informationAddressPixelSize: 32
         property int informationTitlePixelSize: 36
         property int informationDatePixelSize: 34
         property int informationVenueDescriptionPixelSize: 28
@@ -104,6 +105,10 @@ FocusScope {
                     target: __theme;
                     headerRegionButtonFontSize: 14 * DD14.ScreenValues.dp
                 }
+                PropertyChanges {
+                    target: _config
+                    maps: _config.maps_android
+                }
             }
         ]
     }
@@ -123,6 +128,31 @@ FocusScope {
         property url apiTracks : '$0$1/tracks'.replace('$0', apiBaseUrl).replace('$1', region)
         property url apiLegend : '$0$1/legend'.replace('$0', apiBaseUrl).replace('$1', region)
         property url apiInformation : '$0$1/information'.replace('$0', apiBaseUrl).replace('$1', region)
+
+        property string coordinates : "37.602478,-122.370559"
+        property variant maps_ios : [
+            "comgooglemaps://?center=$coordinates$&zoom=14",
+            "http://maps.apple.com/?ll=$coordinates$"
+        ].map(function(e) { return e.replace("$coordinates$", coordinates) })
+
+        property variant maps_android : [
+            "geo:$coordinates$",
+        ].map(function(e) { return e.replace("$coordinates$", coordinates) })
+
+        property variant maps : maps_ios
+
+        function openMaps()
+        {
+            /// TODO: Check for reachability
+            // If network is available, use the address,
+            // if not, use the lat/long coordinates
+            for(var i = 0; i < maps.length; i++)
+            {
+                console.log("maps[i]="+maps[i])
+                if(Qt.openUrlExternally(maps[i]))
+                    break;
+            }
+        }
     }
 
     Utils.Model {

@@ -242,6 +242,7 @@ Utils.BaseTabBarPage {
                                                 NumberAnimation {
                                                     target: _RightNowIcon; property: "scale";
                                                     duration: 450; easing.type: Easing.OutBack
+                                                    easing.overshoot: 0.4
                                                 }
                                                 NumberAnimation {
                                                     target: _RightNowIcon; property: "opacity";
@@ -250,6 +251,7 @@ Utils.BaseTabBarPage {
                                                 NumberAnimation {
                                                     target: _RightNowIcon; property: "width";
                                                     duration: 450; easing.type: Easing.OutBack
+                                                    easing.overshoot: 0.4
                                                 }
                                             }
                                         }

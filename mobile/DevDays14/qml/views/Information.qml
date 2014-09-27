@@ -61,17 +61,72 @@ Utils.BaseTabBarPage {
                 }
                 visible: _Image_Venue.source !== ""
             }
-            Utils.VerticalSpacer { height: 20 }
-            Label {
-                id: _Label_Address
+            Utils.VerticalSpacer { height: 30 }
+            Item {
+                id: _Item_Address
+                height: _Label_Address.height
                 width: parent.width
-                wrapMode: Text.WordWrap
-                text: getData('location').name || ""
-                color: "#444444"
-                font.pixelSize: __theme.informationAddressPixelSize
-                Utils.Fill { color: "red" }
+                Utils.BaseIcon {
+                    id: _BaseIcon_Maps
+                    anchors.centerIn: undefined
+                    anchors.left: parent.left
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: 64
+                    color: _Label_Address.color
+                    source: "../img/icon-maps.png"
+                }
+                Label {
+                    id: _Label_Address
+                    anchors.left: _BaseIcon_Maps.right
+                    anchors.leftMargin: 20
+                    anchors.right: parent.right
+                    wrapMode: Text.WordWrap
+                    color: !_ClickGuard_Address.pressed ? "#444444" : "#777777"
+                    font.pixelSize: __theme.informationAddressPixelSize
+                    text: getData('location').name || ""
+                    Utils.Fill { color: "red" }
+                }
+                Utils.ClickGuard {
+                    id: _ClickGuard_Address
+                    onClicked: {
+                        _Rectangle_MapsButton.visible ^= 1
+                    }
+                }
             }
             Utils.VerticalSpacer { height: 20 }
+            Rectangle {
+                id: _Rectangle_MapsButton
+                width: parent.width
+                height: visible ? 60 : 0
+                radius: 10
+                color: !_ClickGuard_MapsButton.pressed ? __theme.qtColorLightGreen : __theme.qtColorMediumGreen
+                visible: false
+                Behavior on height {
+                    NumberAnimation {
+                        duration: 300
+                        easing.type: Easing.OutCubic
+                    }
+                }
+                Label {
+                    anchors.fill: parent
+                    anchors.margins: 12
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    color: "#ffffff"
+                    font.pixelSize: 30
+                    font.weight: Font.DemiBold
+                    elide: Text.ElideRight
+                    text: qsTr("Open Maps Application")
+                }
+                Utils.ClickGuard {
+                   id: _ClickGuard_MapsButton
+                   onClicked: {
+                       _config.openMaps()
+                       _Rectangle_MapsButton.visible = false
+                   }
+                }
+            }
+            Utils.VerticalSpacer { height: _Rectangle_MapsButton.visible ? 30 : 20 }
             Label {
                 id: _Label_VenueDescription
                 width: parent.width
