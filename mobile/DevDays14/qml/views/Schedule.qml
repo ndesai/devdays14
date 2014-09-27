@@ -166,9 +166,10 @@ Utils.BaseTabBarPage {
                         {
                             for(var i = 0; i < count; i++)
                             {
-                                if(itemAt(i).flagIcon.visible)
+                                if(itemAt(i).flagIcon.state === "visible")
                                 {
                                     _Behavior_ContentY.enabled = true
+                                    console.log("setting contentY to " + itemAt(i).y)
                                     _Flickable.contentY = itemAt(i).y
                                     _Behavior_ContentY.enabled = false
                                 }
@@ -205,6 +206,54 @@ Utils.BaseTabBarPage {
                                 }
                                 RightNowIcon {
                                     id: _RightNowIcon
+                                    property bool isRightNow : _Model.date_isRightNow(modelData.date.plain.starting,
+                                                                                      modelData.date.plain.ending)
+                                    anchors.left: parent.left
+                                    anchors.leftMargin: 20
+
+                                    state: "hidden"
+                                    states: [
+                                        State {
+                                            name: "hidden"
+                                            when: !_RightNowIcon.isRightNow
+                                            PropertyChanges {
+                                                target: _RightNowIcon
+                                                scale: 0
+                                                opacity: 0
+                                                width: 0
+                                            }
+                                        },
+                                        State {
+                                            name: "visible"
+                                            when: _RightNowIcon.isRightNow
+                                            PropertyChanges {
+                                                target: _RightNowIcon
+                                                scale: 1
+                                                opacity: 1
+                                                width: _RightNowIcon.rowWidth
+                                            }
+                                        }
+                                    ]
+                                    transitions: [
+                                        Transition {
+                                            from: "hidden"
+                                            to: "visible"
+                                            ParallelAnimation {
+                                                NumberAnimation {
+                                                    target: _RightNowIcon; property: "scale";
+                                                    duration: 450; easing.type: Easing.OutBack
+                                                }
+                                                NumberAnimation {
+                                                    target: _RightNowIcon; property: "opacity";
+                                                    duration: 450; easing.type: Easing.OutBack
+                                                }
+                                                NumberAnimation {
+                                                    target: _RightNowIcon; property: "width";
+                                                    duration: 450; easing.type: Easing.OutBack
+                                                }
+                                            }
+                                        }
+                                    ]
                                 }
                                 Utils.AccentTop {
                                     color: __theme.lightGreyAccent

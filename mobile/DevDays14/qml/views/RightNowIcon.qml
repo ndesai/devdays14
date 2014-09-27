@@ -1,59 +1,43 @@
 import QtQuick 2.0
 import "../utils" as Utils
 
-Utils.BaseIcon {
+Rectangle {
     id: root
-    property bool isRightNow : _Model.date_isRightNow(modelData.date.plain.starting,
-                                                      modelData.date.plain.ending)
-    anchors.centerIn: undefined
-    anchors.left: parent.left
-    anchors.leftMargin: 20
+    property alias rowWidth : _Row.width
+    width: _Row.width
+    height: 52
     anchors.verticalCenter: parent.verticalCenter
-    width: 36
-    source: "../img/icon-clock.png"
-    color: "#222222"
+    radius: 10
+    color: __theme.qtColorMediumGreen
     transformOrigin: Item.Center
-    visible: opacity>0
-    state: "hidden"
-    states: [
-        State {
-            name: "hidden"
-            when: !root.isRightNow
-            PropertyChanges {
-                target: root
-                scale: 0
-                opacity: 0
-                width: 0
-            }
-        },
-        State {
-            name: "visible"
-            when: root.isRightNow
-            PropertyChanges {
-                target: root
-                scale: 1
-                opacity: 1
-                width: 36
-            }
+    // There is a painting delay if we hide this icon
+    // when not in use. It stutters the animation
+    // visible: opacity>0
+    clip: true
+    layer.enabled: true
+    layer.smooth: true
+    Row {
+        id: _Row
+        height: parent.height
+        width: childrenRect.width
+        Utils.BaseIcon {
+            anchors.centerIn: undefined
+            anchors.verticalCenter: parent.verticalCenter
+            source: "../img/icon-clock-filled.png"
+            color: "#ffffff"
+            width: 24
+            Utils.Fill { color: "pink" }
         }
-    ]
-    transitions: [
-        Transition {
-            ParallelAnimation {
-                NumberAnimation {
-                    target: root; property: "scale";
-                    duration: 450; easing.type: Easing.OutBack
-                }
-                NumberAnimation {
-                    target: root; property: "opacity";
-                    duration: 450; easing.type: Easing.OutBack
-                }
-                NumberAnimation {
-                    target: root; property: "width";
-                    duration: 300; easing.type: Easing.OutBack
-                }
-            }
+        Utils.HorizontalSpacer { width: 12 }
+        Label {
+            id: _Label_Now
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.verticalCenterOffset: 1
+            font.pixelSize: 24
+            font.weight: Font.DemiBold
+            color: "#ffffff"
+            text: qsTr("NOW")
         }
-    ]
-    Utils.Fill { color: "red" }
+        Utils.HorizontalSpacer { width: 18 }
+    }
 }

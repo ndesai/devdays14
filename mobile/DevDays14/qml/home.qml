@@ -183,11 +183,6 @@ FocusScope {
 
     // UI
 
-    Rectangle {
-        anchors.fill: parent
-        color: "#ffffff"
-    }
-
     Views.Header {
         id: _Header
         Image {
@@ -201,29 +196,10 @@ FocusScope {
                 interval: 10000
             }
         }
-        //        Row {
-        //            anchors.verticalCenter: parent.verticalCenter
-        //            anchors.right: parent.right
-        //            anchors.rightMargin: 20
-        //            layoutDirection: Qt.RightToLeft
-        //            spacing: 20
-        //            Views.HeaderRegionButton {
-        //                id: _HeaderRegionButton_NorthAmerica
-        //                text: qsTr("North America")
-        //                active: true
-        //                enabled: _Model.apiStatus === Loader.Ready
-        //                onClicked: _StateGroup_Region.state = "northAmerica"
-        //            }
-        //        }
-        Utils.BaseIcon {
-            anchors.centerIn: undefined
+        Views.RightNowIcon {
+            id: _RightNowIcon
             anchors.right: parent.right
-            anchors.rightMargin: 20
-            anchors.verticalCenter: parent.verticalCenter
-            source: "img/icon-clock.png"
-            color: __theme.qtColorMediumGreen
-            //            visible: true
-            // only show this if the dates are near
+            anchors.rightMargin: 24
             Utils.ClickGuard {
                 anchors.fill: parent
                 anchors.margins: -10
@@ -232,8 +208,6 @@ FocusScope {
                     _Schedule.showToday()
                 }
             }
-
-            Utils.Fill { color: "red" }
         }
         z: 2
     }
