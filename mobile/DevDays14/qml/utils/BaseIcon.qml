@@ -14,7 +14,7 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         fillMode: Image.PreserveAspectFit
-        sourceSize.width: 2*width; sourceSize.height: 2*height
+        //sourceSize.width: 2*width; sourceSize.height: 2*height
         smooth: true
         visible: false
     }

@@ -48,6 +48,7 @@
 		<file>qml/views/Information.qml</file>
 		<file>qml/views/Label.qml</file>
 		<file>qml/views/Loading.qml</file>
+		<file>qml/views/RightNowIcon.qml</file>
 		<file>qml/views/Schedule.qml</file>
 		<file>qml/views/Sheet.qml</file>
 		<file>qml/views/Slide.qml</file>

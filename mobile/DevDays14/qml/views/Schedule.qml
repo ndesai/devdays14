@@ -178,7 +178,7 @@ Utils.BaseTabBarPage {
                         delegate: Item {
                             id: _Item_ScheduleDelegate
                             property variant dataModel : modelData
-                            property alias flagIcon : _BaseIcon_Flag
+                            property alias flagIcon : _RightNowIcon
                             width: _Column_Sessions.width
                             height: _Rectangle_SessionTime.height + _Column_Tracks.height
                             //                            clip: true
@@ -188,8 +188,8 @@ Utils.BaseTabBarPage {
                                 height: 80
                                 color: __theme.lightGrey
                                 Label {
-                                    anchors.left: _BaseIcon_Flag.visible ? _BaseIcon_Flag.right : parent.left
-                                    anchors.leftMargin: _BaseIcon_Flag.visible ? 16 : 30
+                                    anchors.left: _RightNowIcon.visible ? _RightNowIcon.right : parent.left
+                                    anchors.leftMargin: _RightNowIcon.visible ? 16 : 30
                                     anchors.right: parent.right
                                     anchors.rightMargin: 30
                                     anchors.top: parent.top
@@ -203,18 +203,8 @@ Utils.BaseTabBarPage {
                                     elide: Text.ElideRight
                                     Utils.Fill { color: "yellow" }
                                 }
-                                Utils.BaseIcon {
-                                    id: _BaseIcon_Flag
-                                    anchors.centerIn: undefined
-                                    anchors.left: parent.left
-                                    anchors.leftMargin: 20
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    width: 36
-                                    source: "../img/icon-clock.png"
-                                    color: "#222222"
-                                    visible: _Model.date_isRightNow(modelData.date.plain.starting,
-                                                                    modelData.date.plain.ending)
-                                    Utils.Fill { color: "red" }
+                                RightNowIcon {
+                                    id: _RightNowIcon
                                 }
                                 Utils.AccentTop {
                                     color: __theme.lightGreyAccent
