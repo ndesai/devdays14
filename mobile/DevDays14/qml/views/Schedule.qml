@@ -189,10 +189,10 @@ Utils.BaseTabBarPage {
                                 height: 80
                                 color: __theme.lightGrey
                                 Label {
-                                    anchors.left: _RightNowIcon.visible ? _RightNowIcon.right : parent.left
-                                    anchors.leftMargin: _RightNowIcon.visible ? 16 : 30
-                                    anchors.right: parent.right
-                                    anchors.rightMargin: 30
+                                    anchors.left: parent.left
+                                    anchors.leftMargin: 30
+                                    anchors.right: _RightNowIcon.state !== "hidden" ? _RightNowIcon.left : parent.right
+                                    anchors.rightMargin: _RightNowIcon.state !== "hidden" ? 20 : 30
                                     anchors.top: parent.top
                                     anchors.bottom: parent.bottom
                                     verticalAlignment: Text.AlignVCenter
@@ -208,9 +208,8 @@ Utils.BaseTabBarPage {
                                     id: _RightNowIcon
                                     property bool isRightNow : _Model.date_isRightNow(modelData.date.plain.starting,
                                                                                       modelData.date.plain.ending)
-                                    anchors.left: parent.left
-                                    anchors.leftMargin: 20
-
+                                    anchors.right: parent.right
+                                    anchors.rightMargin: 30
                                     state: "hidden"
                                     states: [
                                         State {
@@ -220,7 +219,6 @@ Utils.BaseTabBarPage {
                                                 target: _RightNowIcon
                                                 scale: 0
                                                 opacity: 0
-                                                width: 0
                                             }
                                         },
                                         State {
@@ -230,7 +228,6 @@ Utils.BaseTabBarPage {
                                                 target: _RightNowIcon
                                                 scale: 1
                                                 opacity: 1
-                                                width: _RightNowIcon.rowWidth
                                             }
                                         }
                                     ]
@@ -247,11 +244,6 @@ Utils.BaseTabBarPage {
                                                 NumberAnimation {
                                                     target: _RightNowIcon; property: "opacity";
                                                     duration: 450; easing.type: Easing.OutBack
-                                                }
-                                                NumberAnimation {
-                                                    target: _RightNowIcon; property: "width";
-                                                    duration: 450; easing.type: Easing.OutBack
-                                                    easing.overshoot: 0.4
                                                 }
                                             }
                                         }
