@@ -26,6 +26,27 @@ Utils.BaseTabBarPage {
         }
     }
 
+    function showToday()
+    {
+        _ListView_ScheduleView.highlightMoveDuration = 1
+
+        for(var i = 0; i < _Model.schedule.schedule.length; i++)
+        {
+            var modelData = _Model.schedule.schedule[i]
+            var s = new Date(modelData.day.startingSession)
+            var e = new Date(modelData.day.endingSession)
+            if(_Model.today > s && _Model.today < e)
+            {
+                _ListView_DateView.currentIndex = i
+                _ListView_DateView.positionViewAtIndex(i, ListView.Center)
+                _ListView_ScheduleView.positionViewAtIndex(i, ListView.Center)
+                _ListView_ScheduleView.currentItem.sessionRepeater.positionToCurrentSession()
+                break
+            }
+        }
+        _ListView_ScheduleView.highlightMoveDuration = _ListView_DateView.highlightMoveDuration
+    }
+
     Rectangle {
         id: _Rectangle_DateView
         anchors.left: parent.left
@@ -111,16 +132,28 @@ Utils.BaseTabBarPage {
         model: _ListView_DateView.model
         delegate: Item {
             id: _Item_ScheduleView
+            property alias sessionRepeater : _Repeater_Sessions
             width: ListView.view.width
             height: ListView.view.height
             layer.enabled: true
             layer.smooth: true
             Flickable {
+                id: _Flickable
                 anchors.fill: parent
                 flickableDirection: Flickable.VerticalFlick
                 contentWidth: width
                 contentHeight: _Column_Sessions.height
                 clip: true
+
+                Behavior on contentY {
+                    id: _Behavior_ContentY
+                    enabled: false
+                    NumberAnimation {
+                        duration: 350
+                        easing.type: Easing.OutCubic
+                    }
+                }
+
                 Column {
                     id: _Column_Sessions
                     width: parent.width
@@ -128,9 +161,24 @@ Utils.BaseTabBarPage {
                     Repeater {
                         id: _Repeater_Sessions
                         model: modelData.sessions
+
+                        function positionToCurrentSession()
+                        {
+                            for(var i = 0; i < count; i++)
+                            {
+                                if(itemAt(i).flagIcon.visible)
+                                {
+                                    _Behavior_ContentY.enabled = true
+                                    _Flickable.contentY = itemAt(i).y
+                                    _Behavior_ContentY.enabled = false
+                                }
+                            }
+                        }
+
                         delegate: Item {
                             id: _Item_ScheduleDelegate
                             property variant dataModel : modelData
+                            property alias flagIcon : _BaseIcon_Flag
                             width: _Column_Sessions.width
                             height: _Rectangle_SessionTime.height + _Column_Tracks.height
                             //                            clip: true
@@ -140,9 +188,12 @@ Utils.BaseTabBarPage {
                                 height: 80
                                 color: __theme.lightGrey
                                 Label {
-                                    anchors.fill: parent
-                                    anchors.leftMargin: 30
+                                    anchors.left: _BaseIcon_Flag.visible ? _BaseIcon_Flag.right : parent.left
+                                    anchors.leftMargin: _BaseIcon_Flag.visible ? 16 : 30
+                                    anchors.right: parent.right
                                     anchors.rightMargin: 30
+                                    anchors.top: parent.top
+                                    anchors.bottom: parent.bottom
                                     verticalAlignment: Text.AlignVCenter
                                     text: modelData.date.formatted
                                     color: "#222222"
@@ -150,6 +201,20 @@ Utils.BaseTabBarPage {
                                     styleColor: "#ffffff"
                                     font.pixelSize: __theme.scheduleViewPixelSize
                                     elide: Text.ElideRight
+                                    Utils.Fill { color: "yellow" }
+                                }
+                                Utils.BaseIcon {
+                                    id: _BaseIcon_Flag
+                                    anchors.centerIn: undefined
+                                    anchors.left: parent.left
+                                    anchors.leftMargin: 20
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    width: 36
+                                    source: "../img/icon-clock.png"
+                                    color: "#222222"
+                                    visible: _Model.date_isRightNow(modelData.date.plain.starting,
+                                                                    modelData.date.plain.ending)
+                                    Utils.Fill { color: "red" }
                                 }
                                 Utils.AccentTop {
                                     color: __theme.lightGreyAccent

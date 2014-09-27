@@ -21,6 +21,7 @@ FocusScope {
 
         property color qtColorLightGreen : "#7fc438"
         property color qtColorDarkGreen : "#026426"
+        property color qtColorMediumGreen : "#5c9c1c"
         property color lightGrey : "#f3f3f3"
         property color lightGreyAccent : "#d1d1d0"
         property color lightGreyAccentSecondary : "#eeeeee"
@@ -50,8 +51,8 @@ FocusScope {
     }
 
     property bool isApple : Qt.platform.os === "ios"
-                          || Qt.platform.os === "osx"
-                          || Qt.platform.os === "mac"
+                            || Qt.platform.os === "osx"
+                            || Qt.platform.os === "mac"
     StateGroup {
         id: _StateGroup_Theme
         states: [
@@ -115,7 +116,7 @@ FocusScope {
     property alias _config : _QtObject_Config
     QtObject {
         id: _QtObject_Config
-        property string region : 'europe'
+        property string region : 'north-america'
         property url apiRoute : 'http://50.116.22.180:8080/devdays14-route/route'
         property string apiBaseUrl : 'http://api.app.st/devdays14/'
         property url apiSchedule : '$0$1/schedule'.replace('$0', apiBaseUrl).replace('$1', region)
@@ -124,9 +125,13 @@ FocusScope {
         property url apiInformation : '$0$1/information'.replace('$0', apiBaseUrl).replace('$1', region)
     }
 
-
     Utils.Model {
         id: _Model
+
+        onDateReady: {
+            _Schedule.showToday()
+        }
+
         onApiStatusChanged: {
             if(apiStatus === Loader.Loading)
             {
@@ -139,6 +144,14 @@ FocusScope {
         }
     }
 
+    Timer {
+        id: _Timer_Now
+        interval: 5*1000
+        repeat: true; running: true
+        onTriggered: {
+            _Model.today = new Date(2014, 10, 05, parseInt(Qt.formatDateTime(_Model.today, "h"), 10)+1, 13, 09)
+        }
+    }
 
     StateGroup {
         id: _StateGroup_Region
@@ -153,10 +166,6 @@ FocusScope {
                 PropertyChanges {
                     target: _HeaderRegionButton_NorthAmerica
                     active: true
-                }
-                PropertyChanges {
-                    target: _HeaderRegionButton_Europe
-                    active: false
                 }
             }
         ]
@@ -187,37 +196,44 @@ FocusScope {
             anchors.leftMargin: 20
             anchors.verticalCenter: parent.verticalCenter
             source: "img/logo-header.png"
-            Utils.ClickGuard {
-                enabled: !_Timer_Debouncer.running
-                onClicked: _StateGroup_Region.state = _StateGroup_Region.state === "" ?
-                               "northAmerica"
-                             : ""
-            }
             Timer {
                 id: _Timer_Debouncer
                 interval: 10000
             }
         }
-        Row {
-            anchors.verticalCenter: parent.verticalCenter
+        //        Row {
+        //            anchors.verticalCenter: parent.verticalCenter
+        //            anchors.right: parent.right
+        //            anchors.rightMargin: 20
+        //            layoutDirection: Qt.RightToLeft
+        //            spacing: 20
+        //            Views.HeaderRegionButton {
+        //                id: _HeaderRegionButton_NorthAmerica
+        //                text: qsTr("North America")
+        //                active: true
+        //                enabled: _Model.apiStatus === Loader.Ready
+        //                onClicked: _StateGroup_Region.state = "northAmerica"
+        //            }
+        //        }
+        Utils.BaseIcon {
+            anchors.centerIn: undefined
             anchors.right: parent.right
             anchors.rightMargin: 20
-            layoutDirection: Qt.RightToLeft
-            spacing: 20
-            Views.HeaderRegionButton {
-                id: _HeaderRegionButton_NorthAmerica
-                text: qsTr("North America")
-                active: false
-                enabled: _Model.apiStatus === Loader.Ready
-                onClicked: _StateGroup_Region.state = "northAmerica"
+            anchors.verticalCenter: parent.verticalCenter
+            source: "img/icon-clock.png"
+            color: __theme.qtColorMediumGreen
+            //            visible: true
+            // only show this if the dates are near
+            Utils.ClickGuard {
+                anchors.fill: parent
+                anchors.margins: -10
+                Utils.Fill { color: "blue" }
+                onClicked: {
+                    _Schedule.showToday()
+                }
             }
-            Views.HeaderRegionButton {
-                id: _HeaderRegionButton_Europe
-                text: qsTr("Europe")
-                active: true
-                enabled: _Model.apiStatus === Loader.Ready
-                onClicked: _StateGroup_Region.state = ""
-            }
+
+            Utils.Fill { color: "red" }
         }
         z: 2
     }

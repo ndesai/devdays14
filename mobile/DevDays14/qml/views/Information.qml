@@ -69,6 +69,7 @@ Utils.BaseTabBarPage {
                 text: getData('location').name || ""
                 color: "#444444"
                 font.pixelSize: __theme.informationAddressPixelSize
+                Utils.Fill { color: "red" }
             }
             Utils.VerticalSpacer { height: 20 }
             Label {

@@ -8,8 +8,10 @@ Models.SQLiteDatabase {
     signal favoritesModelReady(variant model)
     signal addedFavoritesTrack(string trackId)
     signal removedFavoritesTrack(string trackId)
+    signal dateReady
     property variant favoritesModel : []
     property variant favoritesHash : []
+    property variant today
 
     // Persistent storage
 
@@ -19,6 +21,7 @@ Models.SQLiteDatabase {
     {
         createFavoritesTable()
         getFavorites()
+        today = new Date(2014, 10, 05, 8, 13, 09)
     }
 
     function createFavoritesTable()
@@ -123,6 +126,7 @@ Models.SQLiteDatabase {
 
             webRequest(_config.apiSchedule, function(response, request, requestUrl) {
                 schedule = response
+                dateReady(today)
                 apiStatus = Loader.Ready
                 _Timer_Debouncer.stop()
             })
@@ -153,6 +157,17 @@ Models.SQLiteDatabase {
         }
         request.open("GET", requestUrl, true); // only async supported
         request.send();
+    }
+
+    // Date helpers
+    function date_isRightNow(start, end)
+    {
+        //        console.log("date_isRightNow?")
+        //        console.log("start =",start)
+        //        console.log("end =",end)
+        var s = new Date(start)
+        var e = new Date(end)
+        return today > s && today < e
     }
 
     Component.onCompleted: {
