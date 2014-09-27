@@ -28,8 +28,6 @@ Utils.BaseWindow {
     width: resolutions[currentResolution]["width"]
     height: resolutions[currentResolution]["height"]
 
-
-
     Android.ActionBar {
         id: actionBar
         title: "<html><font color=\"#322e2d\">Qt DEVELOPER DAYS </font> <font color=\"#5c9c1c\">2014</font></html>"
@@ -45,6 +43,7 @@ Utils.BaseWindow {
         }
 
         source: "home.qml"
+        focus: true
 
         onLoaded: {
             item.header.height = Math.ceil(ScreenValues.dp * (ScreenValues.isTablet ? 56 : (isScreenPortrait ? 48 : 40)))
