@@ -16,6 +16,8 @@ Utils.BaseTabBarPage {
             trackDetailObject.id = trackObject.id
             trackDetailObject.presentation.track.color = trackObject.color
             trackDetailObject.session = trackObject.session
+            trackDetailObject.day = _ListView_DateView.currentItem.dataModel.day
+            trackDetailObject.date = trackObject.date
             if(isDataSufficient(trackDetailObject))
             {
                 _TrackDetailSheet.openWithObject(trackDetailObject);
@@ -94,14 +96,6 @@ Utils.BaseTabBarPage {
                         font.pixelSize: __theme.dateViewPixelSize
                         Utils.Fill { }
                     }
-                    Rectangle {
-                        width: parent.width
-                        height: 4
-                        anchors.bottom: parent.bottom
-                        color: __theme.qtColorDarkGreen
-                        opacity: _Item_Delegate.ListView.isCurrentItem ? 1 : 0
-                        Behavior on opacity { NumberAnimation { duration: 100 } }
-                    }
                     Utils.Fill { color: index%2==0?"red":"yellow" }
                 }
                 Utils.ClickGuard {
@@ -109,11 +103,22 @@ Utils.BaseTabBarPage {
                 }
             }
         }
+        Rectangle {
+            width: parent.width
+            height: 2
+            anchors.bottom: parent.bottom
+            color: __theme.qtColorMediumGreen
+            //opacity: _Item_Delegate.ListView.isCurrentItem ? 1 : 0
+            //Behavior on opacity { NumberAnimation { duration: 100 } }
+        }
     }
 
     ListView {
         id: _ListView_ScheduleView
         // This ListView has one delegate per day of schedule
+        // SingleDayDelegate (ListView)
+        // - SingleSessionDelegate (Repeater)
+        // -- SingleTrackDelegate (Repeater)
         anchors.top: _Rectangle_DateView.bottom
         anchors.left: parent.left
         anchors.right: parent.right
@@ -130,260 +135,6 @@ Utils.BaseTabBarPage {
             _ListView_DateView.currentIndex = currentIndex
         }
         model: _ListView_DateView.model
-        delegate: Item {
-            id: _Item_ScheduleView
-            property alias sessionRepeater : _Repeater_Sessions
-            width: ListView.view.width
-            height: ListView.view.height
-            layer.enabled: true
-            layer.smooth: true
-            Flickable {
-                id: _Flickable
-                anchors.fill: parent
-                flickableDirection: Flickable.VerticalFlick
-                contentWidth: width
-                contentHeight: _Column_Sessions.height
-                clip: true
-
-                Behavior on contentY {
-                    id: _Behavior_ContentY
-                    enabled: false
-                    NumberAnimation {
-                        duration: 350
-                        easing.type: Easing.OutCubic
-                    }
-                }
-
-                Column {
-                    id: _Column_Sessions
-                    width: parent.width
-                    height: childrenRect.height
-                    Repeater {
-                        id: _Repeater_Sessions
-                        model: modelData.sessions
-
-                        function positionToCurrentSession()
-                        {
-                            for(var i = 0; i < count; i++)
-                            {
-                                if(itemAt(i).flagIcon.state === "visible")
-                                {
-                                    _Behavior_ContentY.enabled = true
-                                    console.log("setting contentY to " + itemAt(i).y)
-                                    _Flickable.contentY = itemAt(i).y
-                                    _Behavior_ContentY.enabled = false
-                                }
-                            }
-                        }
-
-                        delegate: Item {
-                            id: _Item_ScheduleDelegate
-                            property variant dataModel : modelData
-                            property alias flagIcon : _RightNowIcon
-                            width: _Column_Sessions.width
-                            height: _Rectangle_SessionTime.height + _Column_Tracks.height
-                            //                            clip: true
-                            Rectangle {
-                                id: _Rectangle_SessionTime
-                                width: parent.width - 2
-                                height: 80
-                                color: __theme.lightGrey
-                                Label {
-                                    anchors.left: parent.left
-                                    anchors.leftMargin: 30
-                                    anchors.right: _RightNowIcon.state !== "hidden" ? _RightNowIcon.left : parent.right
-                                    anchors.rightMargin: _RightNowIcon.state !== "hidden" ? 20 : 30
-                                    anchors.top: parent.top
-                                    anchors.bottom: parent.bottom
-                                    verticalAlignment: Text.AlignVCenter
-                                    text: modelData.date.formatted
-                                    color: "#222222"
-                                    style: Text.Raised
-                                    styleColor: "#ffffff"
-                                    font.pixelSize: __theme.scheduleViewPixelSize
-                                    elide: Text.ElideRight
-                                    Utils.Fill { color: "yellow" }
-                                }
-                                RightNowIcon {
-                                    id: _RightNowIcon
-                                    property bool isRightNow : _Model.date_isRightNow(modelData.date.plain.starting,
-                                                                                      modelData.date.plain.ending)
-                                    anchors.right: parent.right
-                                    anchors.rightMargin: 30
-                                    state: "hidden"
-                                    states: [
-                                        State {
-                                            name: "hidden"
-                                            when: !_RightNowIcon.isRightNow
-                                            PropertyChanges {
-                                                target: _RightNowIcon
-                                                scale: 0
-                                                opacity: 0
-                                            }
-                                        },
-                                        State {
-                                            name: "visible"
-                                            when: _RightNowIcon.isRightNow
-                                            PropertyChanges {
-                                                target: _RightNowIcon
-                                                scale: 1
-                                                opacity: 1
-                                            }
-                                        }
-                                    ]
-                                    transitions: [
-                                        Transition {
-                                            from: "hidden"
-                                            to: "visible"
-                                            ParallelAnimation {
-                                                NumberAnimation {
-                                                    target: _RightNowIcon; property: "scale";
-                                                    duration: 450; easing.type: Easing.OutBack
-                                                    easing.overshoot: 0.4
-                                                }
-                                                NumberAnimation {
-                                                    target: _RightNowIcon; property: "opacity";
-                                                    duration: 450; easing.type: Easing.OutBack
-                                                }
-                                            }
-                                        }
-                                    ]
-                                }
-                                Utils.AccentTop {
-                                    color: __theme.lightGreyAccent
-                                }
-                                Utils.AccentBottom {
-                                    color: __theme.lightGreyAccentSecondary
-                                }
-                            }
-                            Column {
-                                id: _Column_Tracks
-                                anchors.top: _Rectangle_SessionTime.bottom
-                                anchors.left: parent.left
-                                anchors.right: parent.right
-                                height: childrenRect.height
-                                clip: true
-                                Repeater {
-                                    id: _Repeater_Tracks
-                                    model: modelData.tracks
-                                    delegate: Rectangle {
-                                        id: _Rectangle_Track
-                                        property variant trackDetail : _Model.legend[modelData.track] || { }
-                                        height: Math.max(80, _Column_TrackInformation.height + 30)
-                                        width: _Column_Tracks.width
-                                        color: _ClickGuard_Track.pressed ? "#dddddd" : "#ffffff"
-
-                                        Rectangle {
-                                            id: _Rectangle_TrackColor
-                                            width: __theme.colorIndicatorWidth
-                                            anchors.top: parent.top
-                                            anchors.topMargin: 20
-                                            anchors.bottom: parent.bottom
-                                            anchors.bottomMargin: 20
-                                            anchors.left: parent.left
-                                            anchors.leftMargin: 20
-                                            color: _Rectangle_Track.trackDetail.color || __theme.qtColorLightGreen
-                                            radius: 5
-                                            Rectangle {
-                                                radius: parent.radius
-                                                anchors.fill: parent
-                                                opacity: 0.25
-                                                border { width: __theme.colorIndicatorBorderWidth; color: Qt.darker(_Rectangle_TrackColor.color) }
-                                            }
-                                        }
-
-                                        Column {
-                                            id: _Column_TrackInformation
-                                            anchors.left: _Rectangle_TrackColor.right
-                                            anchors.right: _BaseIcon_Favorite.left
-                                            anchors.leftMargin: 20
-                                            anchors.rightMargin: 20
-                                            anchors.verticalCenter: parent.verticalCenter
-                                            Label {
-                                                id: _Label_TrackTitle
-                                                anchors.left: parent.left
-                                                anchors.right: parent.right
-                                                font.pixelSize: __theme.scheduleViewTitlePixelSize
-                                                wrapMode: Text.WordWrap
-                                                text: modelData.title
-                                                Utils.Fill { color: index%2===0?"blue":"green" }
-                                            }
-                                            Item { width: 1; height: 4; visible: _Label_TrackPresenter.visible }
-                                            Label {
-                                                id: _Label_TrackPresenter
-                                                anchors.left: parent.left
-                                                anchors.right: parent.right
-                                                font.pixelSize: 30
-                                                wrapMode: Text.WordWrap
-                                                visible: text !== ""
-                                                text: modelData.presenter
-                                                color: "#525252"
-                                                font.italic: true
-                                            }
-                                            Item { width: 1; height: 4; visible: _Label_TrackLocation.visible }
-                                            Label {
-                                                id: _Label_TrackLocation
-                                                anchors.left: parent.left
-                                                anchors.right: parent.right
-                                                font.pixelSize: 28
-                                                wrapMode: Text.WordWrap
-                                                visible: text !== ""
-                                                text: modelData.location
-                                                color: "#525252"
-                                            }
-                                        }
-
-                                        Utils.BaseIcon {
-                                            id: _BaseIcon_Favorite
-                                            anchors.centerIn: undefined
-                                            anchors.right: parent.right
-                                            anchors.rightMargin: 30
-                                            anchors.verticalCenter: parent.verticalCenter
-                                            color: __theme.qtColorLightGreen
-                                            source: "../img/icon-bookmark-hl.png"
-                                            visible: _Model.favoritesModelContainsTrack(modelData.id)
-                                            Connections {
-                                                target: _Model
-                                                onAddedFavoritesTrack: {
-                                                    if(trackId === modelData.id)
-                                                    {
-                                                        _BaseIcon_Favorite.visible = true
-                                                    }
-                                                }
-                                                onRemovedFavoritesTrack: {
-                                                    if(trackId === modelData.id)
-                                                    {
-                                                        _BaseIcon_Favorite.visible = false
-                                                    }
-                                                }
-                                            }
-                                        }
-
-                                        Utils.ClickGuard {
-                                            id: _ClickGuard_Track
-                                            enabled: modelData.presenter
-                                                     && modelData.presenter !== ""
-                                            onClicked: {
-                                                var trackObject = JSON.parse(JSON.stringify(modelData))
-                                                trackObject.color = _Rectangle_TrackColor.color
-                                                trackObject.session = _Item_ScheduleDelegate.dataModel.date.formatted
-                                                root.trackDetailClicked(trackObject)
-                                            }
-                                        }
-
-                                        Utils.AccentBottom {
-                                            color: __theme.lightGreyAccent
-                                            visible: index<_Repeater_Tracks.count-1
-                                        }
-                                        Utils.Fill { color: index%2===0?"yellow":"red" }
-                                    }
-                                }
-                            }
-                            Utils.Fill { color: "blue"; anchors.fill: _Column_Tracks }
-                        }
-                    }
-                }
-            }
-        }
+        delegate: SingleDayDelegate { }
     }
 }

@@ -7,22 +7,27 @@ Rectangle {
     signal clicked
     property alias text : _Label.text
     property color buttonColor : __theme.qtColorLightGreen
+    property bool skeleton : false
 
     width: parent.width
     height: 80
     radius: 10
-    color: !_ClickGuard.pressed ? buttonColor : Qt.darker(buttonColor)
+    color: !skeleton ? !_ClickGuard.pressed ? buttonColor : Qt.darker(buttonColor)
+    : !_ClickGuard.pressed ? "transparent" : "#f3f3f3"
 
+    border { width: root.skeleton ? 2 : 0; color: root.buttonColor }
     Label {
         id: _Label
         anchors.fill: parent
         anchors.margins: 12
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
-        color: "#ffffff"
+        color: !root.skeleton ? "#ffffff" : root.buttonColor
         font.pixelSize: 30
-        font.weight: Font.DemiBold
+        font.weight: !root.skeleton ? Font.DemiBold : Font.Normal
         elide: Text.ElideRight
+        style: Text.Raised
+        styleColor: !root.skeleton ? "transparent" : root.buttonColor
     }
     Utils.ClickGuard {
        id: _ClickGuard

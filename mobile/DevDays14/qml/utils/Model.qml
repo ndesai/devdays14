@@ -21,12 +21,12 @@ Models.SQLiteDatabase {
     {
         createFavoritesTable()
         getFavorites()
-        today = new Date(2014, 10, 05, 8, 13, 09)
+        today = new Date(2014, 10, 05, 9, 13, 09)
     }
 
     function createFavoritesTable()
     {
-        var q = "CREATE TABLE IF NOT EXISTS %0(track_id TEXT, track_object TEXT, date DATETIME)"
+        var q = "CREATE TABLE IF NOT EXISTS %0(track_id TEXT, track_object TEXT, sessionDate DATETIME, insertionDate DATETIME)"
         .replace(/%0/g, tableFavorites);
 
         executeQuery(q, function(query, status, result) {
@@ -36,11 +36,12 @@ Models.SQLiteDatabase {
 
     function insertFavorite(trackObject)
     {
-        var q = "INSERT INTO %0 VALUES ('%1', '%2', %3)"
+        var q = "INSERT INTO %0 VALUES ('%1', '%2', %3, %4)"
         .replace(/%0/g, tableFavorites)
         .replace(/%1/g, trackObject.id)
         .replace(/%2/g, Qt.btoa(JSON.stringify(trackObject)))
-        .replace(/%3/g, "datetime('"+new Date().toISOString()+"')")
+        .replace(/%3/g, "datetime('"+Qt.formatDateTime(new Date(trackObject.date.plain.starting), "yyyy-MM-dd HH:mm:ss")+"')")
+        .replace(/%4/g, "datetime('"+Qt.formatDateTime(new Date(), "yyyy-MM-dd HH:mm:ss")+"')")
 
         executeQuery(q, function(query, status, result)
         {
@@ -76,11 +77,13 @@ Models.SQLiteDatabase {
 
     function getFavorites()
     {
-        var q = "SELECT * FROM %0".replace(/%0/g, tableFavorites)
+        console.log("getFavorites")
+        var q = "SELECT * FROM %0 ORDER BY sessionDate ASC".replace(/%0/g, tableFavorites)
         executeQuery(q, function(query, status, result)
         {
             if(status)
             {
+                console.log(JSON.stringify(result, null, 2))
                 result = result.map(function(e) {
                     var o = JSON.parse(JSON.stringify(e))
                     o.trackObject = JSON.parse(Qt.atob(e.track_object))
