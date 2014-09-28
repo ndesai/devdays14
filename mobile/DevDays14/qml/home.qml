@@ -157,11 +157,6 @@ Rectangle {
 
     Utils.Model {
         id: _Model
-
-        onDateReady: {
-            _Schedule.showToday()
-        }
-
         onApiStatusChanged: {
             if(apiStatus === Loader.Loading)
             {
@@ -172,6 +167,10 @@ Rectangle {
                 _Loading.hide()
             }
         }
+        onDateReady: {
+            _Schedule.showToday()
+        }
+
     }
 
     Timer {
@@ -236,6 +235,7 @@ Rectangle {
                 Utils.Fill { color: "blue" }
                 onClicked: {
                     _Schedule.showToday()
+                    _TabBarController.showView(_Schedule)
                 }
             }
         }
@@ -252,6 +252,14 @@ Rectangle {
         Behavior on scale { NumberAnimation { duration: 350; easing.type: Easing.OutCubic} }
         Views.Schedule {
             id: _Schedule
+            controller: _TabBarController
+        }
+        Views.Legend {
+            id: _Legend
+            controller: _TabBarController
+        }
+        Views.Favorites {
+            id: _Favorites
             controller: _TabBarController
         }
         Views.Information {
@@ -304,7 +312,6 @@ Rectangle {
 
     // Tab Bar Controller
     // Footer
-
     Views.TabBarController {
         id: _TabBarController
         // A.k.a. the footer

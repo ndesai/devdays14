@@ -13,6 +13,14 @@ Utils.TabBarController {
             sourceComponent: _Schedule
         },
         {
+            icon : "../img/icon-grid.png",
+            sourceComponent: _Legend
+        },
+        {
+            icon : "../img/icon-bookmark.png",
+            sourceComponent: _Favorites
+        },
+        {
             icon : "../img/icon-info.png",
             sourceComponent: _Information
         }

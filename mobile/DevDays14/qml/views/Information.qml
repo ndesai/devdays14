@@ -107,18 +107,7 @@ Utils.BaseTabBarPage {
                 wrapMode: Text.WordWrap
                 text: getData('location').detail || ""
             }
-            Utils.VerticalSpacer { height: 30 }
-            Rectangle {
-                width: parent.width
-                height: 1
-                color: __theme.lightGreyAccentSecondary
-            }
-            Rectangle {
-                width: parent.width
-                height: 1
-                color: __theme.lightGreyAccent
-            }
-            Utils.VerticalSpacer { height: 40 }
+            ColumnDivider { topSpacer: 30 }
             Label {
                 id: _Label_DescriptionText
                 width: parent.width
@@ -134,18 +123,7 @@ Utils.BaseTabBarPage {
                 wrapMode: Text.WordWrap
                 text: getData('description')
             }
-            Utils.VerticalSpacer { height: 40 }
-            Rectangle {
-                width: parent.width
-                height: 1
-                color: __theme.lightGreyAccentSecondary
-            }
-            Rectangle {
-                width: parent.width
-                height: 1
-                color: __theme.lightGreyAccent
-            }
-            Utils.VerticalSpacer { height: 40 }
+            ColumnDivider { }
             Label {
                 id: _Label_AppDescriptionText
                 width: parent.width
@@ -177,18 +155,7 @@ Utils.BaseTabBarPage {
                 buttonColor: "#63d6db"
                 onClicked: Qt.openUrlExternally("http://app.st/qt14")
             }
-            Utils.VerticalSpacer { height: 40 }
-            Rectangle {
-                width: parent.width
-                height: 1
-                color: __theme.lightGreyAccentSecondary
-            }
-            Rectangle {
-                width: parent.width
-                height: 1
-                color: __theme.lightGreyAccent
-            }
-            Utils.VerticalSpacer { height: 40 }
+            ColumnDivider { }
             Label {
                 id: _Label_PolicyText
                 width: parent.width
