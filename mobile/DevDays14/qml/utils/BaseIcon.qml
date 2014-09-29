@@ -4,7 +4,7 @@ import QtGraphicalEffects 1.0 as QGE
 Item {
     property alias source: _Image.source
     property alias color : _ColorOverlay.color
-    anchors.centerIn: parent
+//    anchors.centerIn: parent
     width: 44
     height: _Image.height
     layer.smooth: true
@@ -14,7 +14,7 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         fillMode: Image.PreserveAspectFit
-        //sourceSize.width: 2*width; sourceSize.height: 2*height
+        sourceSize.width: 2*width; sourceSize.height: 2*height
         smooth: true
         visible: false
     }

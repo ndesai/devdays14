@@ -43,6 +43,6 @@ Rectangle {
             style: Text.Raised
             styleColor: !root.skeleton ? "transparent" : root.baseColor
         }
-        Utils.HorizontalSpacer { width: 18 }
+        Utils.HorizontalSpacer { width: 24 }
     }
 }

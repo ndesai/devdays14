@@ -3,10 +3,14 @@
 #include <QQmlExtensionPlugin>
 #include <QQmlContext>
 #include <qqml.h>
-
+#include <QCursor>
+#include <QPixmap>
 #include "src/screenvalues.h"
+#include <QDebug>
+#include <QWidget>
 
 #define QML_DEVELOPMENT "qrc:/qml/dev.qml"
+#define SIM false
 
 #if defined(Q_OS_IOS)
 Q_IMPORT_PLUGIN(PlatformPlugin)
@@ -38,6 +42,10 @@ int main(int argc, char *argv[])
     mainQml = QStringLiteral("qrc:/qml/main_ios.qml");
 #elif defined(Q_OS_ANDROID)
     mainQml = QStringLiteral("qrc:/qml/main_android.qml");
+#elif SIM
+    QCursor cursor(QPixmap(":/qml/img/sim/cursor-default.png"));
+    app.setOverrideCursor(cursor);
+    mainQml = QStringLiteral("qrc:/qml/simfinger.qml");
 #endif
 
     engine.load(QUrl(mainQml));
