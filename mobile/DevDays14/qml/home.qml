@@ -250,7 +250,12 @@ FocusScope {
     }
 
     Keys.onBackPressed: {
-        if (_TrackDetailSheet.state === "")
+        //Exit app when at the top level, this rejects the event
+        //and lets the system handle it
+        if (_TrackDetailSheet.state === "hidden" && !_Information.visible) {
+            event.accepted = false;
+        }
+        else if (_TrackDetailSheet.state === "")
             _TrackDetailSheet.close()
         else if (_Information.visible)
             _TabBarController.clickFirstTab()
