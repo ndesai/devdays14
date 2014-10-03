@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<manifest package="com.iktwo.qtdevdays14" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="0.1.2" android:versionCode="3" android:installLocation="auto">
+<manifest package="com.iktwo.qtdevdays14" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="0.1.3" android:versionCode="4" android:installLocation="auto">
     <application android:hardwareAccelerated="true" android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="DevDays14" android:icon="@drawable/icon">
         <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|locale|fontScale|keyboard|keyboardHidden|navigation" android:name="com.iktwo.qtdevdays14.DevDays" android:label="QtDD14" android:screenOrientation="unspecified" android:launchMode="singleTop" android:theme="@android:style/Theme.Black.NoTitleBar">
             <intent-filter>
