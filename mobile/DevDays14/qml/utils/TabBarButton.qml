@@ -11,14 +11,12 @@ Rectangle {
 
     property variant theme : root.theme
 
-    width: 107
+    width: 120
     height: 100
     border { width: 1; color: theme.borderColor }
     color: !isActive ? (!_MouseArea.pressed ?
                             theme.backgroundDefaultColor :
                             theme.backgroundPressedColor) : theme.backgroundActiveColor
-
-    Behavior on color { ColorAnimation { duration: theme.colorAnimationDuration; } }
 
     Utils.BaseIcon {
         id: _BaseIcon

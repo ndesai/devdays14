@@ -265,6 +265,10 @@ Rectangle {
             id: _Schedule
             controller: _TabBarController
         }
+        Views.FloorPlan {
+            id: _FloorPlan
+            controller: _TabBarController
+        }
         Views.Information {
             id: _Information
             controller: _TabBarController
