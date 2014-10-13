@@ -101,9 +101,11 @@ Sheet {
                             anchors.fill: parent
                             fillMode: Image.PreserveAspectCrop
                             verticalAlignment: Image.AlignTop
-                            source: modelData.image
                             asynchronous: true
                             cache: false
+                            sourceSize.width: width
+                            sourceSize.height: height
+                            source: modelData.image
                         }
                         clip: true
                     }

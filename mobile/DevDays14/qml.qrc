@@ -36,8 +36,6 @@
 		<file>qml/img/tutorial/03-detail-author.jpg</file>
 		<file>qml/img/tutorial/04-floorplan.jpg</file>
 		<file>qml/img/tutorial/05-about.jpg</file>
-		<file>qml/img/tutorial/favorites-01a.png</file>
-		<file>qml/img/tutorial/favorites-01b.png</file>
 		<file>qml/main_android.qml</file>
 		<file>qml/main_ios.qml</file>
 		<file>qml/simfinger.qml</file>
