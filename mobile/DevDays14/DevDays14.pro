@@ -17,7 +17,11 @@ ios {
     # ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon";
 
     BUNDLE_DATA.files = $$PWD/ios/LaunchScreen.xib \
-    $$PWD/ios/Images.xcassets
+    $$PWD/ios/Images.xcassets \
+    $$PWD/ios/Default-568h@2x.png \
+    $$PWD/ios/Default-480h@2x.png
+    $$PWD/ios/Default.png
+
 
     QMAKE_BUNDLE_DATA += BUNDLE_DATA
     QMAKE_INFO_PLIST = $$PWD/ios/Info.plist
