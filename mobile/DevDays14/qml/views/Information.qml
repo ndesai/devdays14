@@ -140,15 +140,24 @@ Utils.BaseTabBarPage {
                 color: !_ClickGuard_AboutThisApp.pressed ? "#444444" : "#555555"
                 text: getData('app').v2
                       && getData('app').v2.description
-                      && getData('app').v2.description.ios || ""
+                    && (isApple && getData('app').v2.description.ios || getData('app').v2.description.android || "")
+
                 Utils.ClickGuard {
                     id: _ClickGuard_AboutThisApp
                     onClicked: {
                         _ColumnButton_AboutThisApp.visible ^= 1
+                        _ColumnButton_AppTutorial.visible = _ColumnButton_AboutThisApp.visible
                     }
                 }
             }
             Utils.VerticalSpacer { height: 20 }
+            ColumnButton {
+                id: _ColumnButton_AppTutorial
+                text: qsTr("Open Tutorial")
+                buttonColor: "#db63a1"
+                onClicked: _TutorialSheet.openWithObject({ buttonLabel : qsTr("Close") })
+            }
+            Utils.VerticalSpacer { height: 10 }
             ColumnButton {
                 id: _ColumnButton_AboutThisApp
                 text: qsTr("Open http://app.st/qt14")
@@ -173,7 +182,7 @@ Utils.BaseTabBarPage {
                 color: !_ClickGuard_Policy.pressed ? "#444444" : "#555555"
                 text: getData('app').v2
                       && getData('app').v2.policy
-                      && getData('app').v2.policy.ios || ""
+                      && ( isApple && getData('app').v2.policy.ios || getData('app').v2.policy.android || "")
                 Utils.ClickGuard {
                     id: _ClickGuard_Policy
                     onClicked: {

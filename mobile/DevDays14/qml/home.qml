@@ -23,6 +23,7 @@ Rectangle {
         property color qtColorLightGreen : "#7fc438"
         property color qtColorDarkGreen : "#026426"
         property color qtColorMediumGreen : "#5c9c1c"
+        property color tankGreen : "#484f40"
         property color lightGrey : "#f3f3f3"
         property color lightGreyAccent : "#d1d1d0"
         property color lightGreyAccentSecondary : "#eeeeee"
@@ -173,6 +174,25 @@ Rectangle {
                 if(Qt.openUrlExternally(maps[i]))
                     break;
             }
+        }
+    }
+
+    Timer {
+        id: _Timer_Date
+        interval: 4000; running: true; repeat: true
+        onTriggered: {
+            // Test case
+//            var d = _Model.today.getDate()
+//            var h = _Model.today.getHours() + 1
+//            if(h >= 24)
+//            {
+//                d += 1
+//                h = 0
+//            }
+//            _Model.today = new Date(2014, 10, d, h, 13, 09)
+//            _Schedule.showToday()
+
+            _Model.today = new Date()
         }
     }
 

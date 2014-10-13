@@ -12,7 +12,7 @@ Models.SQLiteDatabase {
     signal dateReady
     property variant favoritesModel : []
     property variant favoritesHash : []
-    property variant today
+    property variant today : new Date()
 
     // Persistent storage
 
@@ -20,10 +20,14 @@ Models.SQLiteDatabase {
 
     function initialize()
     {
+        createSettingTable()
         createFavoritesTable()
         getFavorites()
-        today = new Date(2014, 10, 05, 9, 13, 09)
+        today = new Date(2014, 10, 03, 1, 13, 09)
+        _Timer_Date.restart()
     }
+
+
 
     function createFavoritesTable()
     {
@@ -31,7 +35,6 @@ Models.SQLiteDatabase {
         .replace(/%0/g, tableFavorites);
 
         executeQuery(q, function(query, status, result) {
-            console.log("created favorites table? " + status)
         })
     }
 
@@ -78,13 +81,11 @@ Models.SQLiteDatabase {
 
     function getFavorites()
     {
-        console.log("getFavorites")
         var q = "SELECT * FROM %0 ORDER BY sessionDate ASC".replace(/%0/g, tableFavorites)
         executeQuery(q, function(query, status, result)
         {
             if(status)
             {
-                console.log(JSON.stringify(result, null, 2))
                 result = result.map(function(e) {
                     var o = JSON.parse(JSON.stringify(e))
                     o.trackObject = JSON.parse(Qt.atob(e.track_object))
@@ -215,11 +216,13 @@ Models.SQLiteDatabase {
     // Date helpers
     function date_isRightNow(start, end)
     {
-        //        console.log("date_isRightNow?")
-        //        console.log("start =",start)
-        //        console.log("end =",end)
+//        console.log("date_isRightNow?")
         var s = new Date(start)
         var e = new Date(end)
+//        console.log("start =",s)
+//        console.log("end =",e)
+//        console.log("today="+today)
+//        console.log("??="+(today > s && today < e))
         return today > s && today < e
     }
 

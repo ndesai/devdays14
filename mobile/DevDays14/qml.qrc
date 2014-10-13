@@ -18,6 +18,7 @@
 		<file>qml/img/icon-info.png</file>
 		<file>qml/img/icon-list.png</file>
 		<file>qml/img/icon-maps.png</file>
+		<file>qml/img/icon-next-fat.png</file>
 		<file>qml/img/icon-spinner.png</file>
 		<file>qml/img/logo-header-europe.png</file>
 		<file>qml/img/logo-header-northamerica.png</file>
@@ -29,6 +30,12 @@
 		<file>qml/img/static/bcc-berlin.jpg</file>
 		<file>qml/img/static/sfo-marriott.jpg</file>
 		<file>qml/img/triangular.png</file>
+		<file>qml/img/tutorial/01-home.jpg</file>
+		<file>qml/img/tutorial/01b-home-favs.jpg</file>
+		<file>qml/img/tutorial/02-detail.jpg</file>
+		<file>qml/img/tutorial/03-detail-author.jpg</file>
+		<file>qml/img/tutorial/04-floorplan.jpg</file>
+		<file>qml/img/tutorial/05-about.jpg</file>
 		<file>qml/img/tutorial/favorites-01a.png</file>
 		<file>qml/img/tutorial/favorites-01b.png</file>
 		<file>qml/main_android.qml</file>
@@ -47,10 +54,12 @@
 		<file>qml/utils/GestureArea.qml</file>
 		<file>qml/utils/HorizontalSpacer.qml</file>
 		<file>qml/utils/Model.qml</file>
+		<file>qml/utils/PaginationDots.qml</file>
 		<file>qml/utils/Platform.qml</file>
 		<file>qml/utils/PlatformiOS.qml</file>
 		<file>qml/utils/RootItem.qml</file>
 		<file>qml/utils/SafeLoader.qml</file>
+		<file>qml/utils/SettingStatements.js</file>
 		<file>qml/utils/TabBarButton.qml</file>
 		<file>qml/utils/TabBarController.qml</file>
 		<file>qml/utils/VerticalSpacer.qml</file>
@@ -72,10 +81,12 @@
 		<file>qml/views/SingleDayDelegate.qml</file>
 		<file>qml/views/SingleSessionDelegate.qml</file>
 		<file>qml/views/SingleTrackDelegate.qml</file>
+		<file>qml/views/SkipButton.qml</file>
 		<file>qml/views/Slide.qml</file>
 		<file>qml/views/Spinner.qml</file>
 		<file>qml/views/TabBarController.qml</file>
 		<file>qml/views/TrackDetailSheet.qml</file>
+		<file>qml/views/TutorialSheet.qml</file>
 		<file>qml/views/UnderSheetDarkener.qml</file>
 	</qresource>
     <qresource prefix="/images">

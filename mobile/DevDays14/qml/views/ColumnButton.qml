@@ -10,7 +10,4 @@ Button {
             easing.type: Easing.OutCubic
         }
     }
-    onClicked: {
-        root.visible = false
-    }
 }

@@ -52,7 +52,8 @@ ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 OTHER_FILES += \
     android/AndroidManifest.xml \
-    android/src/com/iktwo/qtdevdays14/DevDays.java
+    android/src/com/iktwo/qtdevdays14/DevDays.java \
+    qml/views/TutorialSheet.qml
 
 lupdate_only{
     SOURCES = qml/*.qml \
