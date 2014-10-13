@@ -11,28 +11,20 @@ osx {
     QMAKE_MAC_SDK = macosx10.9
 }
 
+
 ios {
-    BUNDLE_DATA.files = $$PWD/ios/AppIcon29x29.png \
-$$PWD/ios/AppIcon29x29@2x.png \
-$$PWD/ios/AppIcon40x40.png \
-$$PWD/ios/AppIcon40x40@2x.png \
-$$PWD/ios/AppIcon50x50.png \
-$$PWD/ios/AppIcon50x50@2x.png \
-$$PWD/ios/AppIcon57x57.png \
-$$PWD/ios/AppIcon57x57@2x.png \
-$$PWD/ios/AppIcon60x60.png \
-$$PWD/ios/AppIcon60x60@2x.png \
-$$PWD/ios/AppIcon72x72.png \
-$$PWD/ios/AppIcon72x72@2x.png \
-$$PWD/ios/AppIcon76x76.png \
-$$PWD/ios/AppIcon76x76@2x.png \
-$$PWD/ios/Default-568h@2x.png \
-$$PWD/ios/Default-480h@2x.png
-$$PWD/ios/Default.png
+    # isa = XCBuildConfiguration;
+    # ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon";
+
+    BUNDLE_DATA.files = $$PWD/ios/LaunchScreen.xib \
+    $$PWD/ios/Images.xcassets \
+    $$PWD/ios/Default-568h@2x.png \
+    $$PWD/ios/Default-480h@2x.png
+    $$PWD/ios/Default.png
+
+
     QMAKE_BUNDLE_DATA += BUNDLE_DATA
     QMAKE_INFO_PLIST = $$PWD/ios/Info.plist
-    #QMAKE_IOS_TARGETED_DEVICE_FAMILY = 1
-
 
     LIBS += -framework MobileCoreServices
     LIBS += -framework MessageUI
@@ -52,7 +44,8 @@ ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 OTHER_FILES += \
     android/AndroidManifest.xml \
-    android/src/com/iktwo/qtdevdays14/DevDays.java
+    android/src/com/iktwo/qtdevdays14/DevDays.java \
+    qml/views/TutorialSheet.qml
 
 lupdate_only{
     SOURCES = qml/*.qml \

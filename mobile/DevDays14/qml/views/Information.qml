@@ -17,7 +17,7 @@ Utils.BaseTabBarPage {
     Flickable {
         id: _Flickable
         anchors.fill: parent
-        contentHeight: _Column.height + 60
+        contentHeight: _Column.height + 40
         contentWidth: width
         Column {
             id: _Column
@@ -61,16 +61,45 @@ Utils.BaseTabBarPage {
                 }
                 visible: _Image_Venue.source !== ""
             }
-            Utils.VerticalSpacer { height: 20 }
-            Label {
-                id: _Label_Address
+            Utils.VerticalSpacer { height: 30 }
+            Item {
+                id: _Item_Address
+                height: _Label_Address.height
                 width: parent.width
-                wrapMode: Text.WordWrap
-                text: getData('location').name || ""
-                color: "#444444"
-                font.pixelSize: __theme.informationAddressPixelSize
+                Utils.BaseIcon {
+                    id: _BaseIcon_Maps
+                    anchors.centerIn: undefined
+                    anchors.left: parent.left
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: 64
+                    color: _Label_Address.color
+                    source: "../img/icon-maps.png"
+                }
+                Label {
+                    id: _Label_Address
+                    anchors.left: _BaseIcon_Maps.right
+                    anchors.leftMargin: 20
+                    anchors.right: parent.right
+                    wrapMode: Text.WordWrap
+                    color: !_ClickGuard_Address.pressed ? "#444444" : "#555555"
+                    font.pixelSize: __theme.informationAddressPixelSize
+                    text: getData('location').name || ""
+                    Utils.Fill { color: "red" }
+                }
+                Utils.ClickGuard {
+                    id: _ClickGuard_Address
+                    onClicked: {
+                        _ColumnButton_Maps.visible ^= 1
+                    }
+                }
             }
             Utils.VerticalSpacer { height: 20 }
+            ColumnButton {
+                id: _ColumnButton_Maps
+                text: qsTr("Open Maps Application")
+                onClicked: _config.openMaps()
+            }
+            Utils.VerticalSpacer { height: _ColumnButton_Maps.visible ? 30 : 20 }
             Label {
                 id: _Label_VenueDescription
                 width: parent.width
@@ -78,18 +107,7 @@ Utils.BaseTabBarPage {
                 wrapMode: Text.WordWrap
                 text: getData('location').detail || ""
             }
-            Utils.VerticalSpacer { height: 30 }
-            Rectangle {
-                width: parent.width
-                height: 1
-                color: __theme.lightGreyAccentSecondary
-            }
-            Rectangle {
-                width: parent.width
-                height: 1
-                color: __theme.lightGreyAccent
-            }
-            Utils.VerticalSpacer { height: 40 }
+            ColumnDivider { topSpacer: 30 }
             Label {
                 id: _Label_DescriptionText
                 width: parent.width
@@ -105,18 +123,7 @@ Utils.BaseTabBarPage {
                 wrapMode: Text.WordWrap
                 text: getData('description')
             }
-            Utils.VerticalSpacer { height: 40 }
-            Rectangle {
-                width: parent.width
-                height: 1
-                color: __theme.lightGreyAccentSecondary
-            }
-            Rectangle {
-                width: parent.width
-                height: 1
-                color: __theme.lightGreyAccent
-            }
-            Utils.VerticalSpacer { height: 40 }
+            ColumnDivider { }
             Label {
                 id: _Label_AppDescriptionText
                 width: parent.width
@@ -130,8 +137,67 @@ Utils.BaseTabBarPage {
                 width: parent.width
                 font.pixelSize: __theme.informationVenueDescriptionPixelSize
                 wrapMode: Text.WordWrap
-                text: getData('app').description || ""
+                color: !_ClickGuard_AboutThisApp.pressed ? "#444444" : "#555555"
+                text: getData('app').v2
+                      && getData('app').v2.description
+                    && (isApple && getData('app').v2.description.ios || getData('app').v2.description.android || "")
+
+                Utils.ClickGuard {
+                    id: _ClickGuard_AboutThisApp
+                    onClicked: {
+                        _ColumnButton_AboutThisApp.visible ^= 1
+                        _ColumnButton_AppTutorial.visible = _ColumnButton_AboutThisApp.visible
+                    }
+                }
             }
+            Utils.VerticalSpacer { height: 20 }
+            ColumnButton {
+                id: _ColumnButton_AppTutorial
+                text: qsTr("Open Tutorial")
+                buttonColor: "#db63a1"
+                onClicked: _TutorialSheet.openWithObject({ buttonLabel : qsTr("Close") })
+            }
+            Utils.VerticalSpacer { height: 10 }
+            ColumnButton {
+                id: _ColumnButton_AboutThisApp
+                text: qsTr("Open http://app.st/qt14")
+                buttonColor: "#63d6db"
+                onClicked: Qt.openUrlExternally("http://app.st/qt14")
+            }
+            ColumnDivider { }
+            Label {
+                id: _Label_PolicyText
+                width: parent.width
+                font.pixelSize: __theme.informationDatePixelSize
+                wrapMode: Text.WordWrap
+                text: qsTr("Policy & Attribution")
+                visible: _Label_Policy.text !== ""
+            }
+            Utils.VerticalSpacer { height: 10 }
+            Label {
+                id: _Label_Policy
+                width: parent.width
+                font.pixelSize: __theme.informationVenueDescriptionPixelSize
+                wrapMode: Text.WordWrap
+                color: !_ClickGuard_Policy.pressed ? "#444444" : "#555555"
+                text: getData('app').v2
+                      && getData('app').v2.policy
+                      && ( isApple && getData('app').v2.policy.ios || getData('app').v2.policy.android || "")
+                Utils.ClickGuard {
+                    id: _ClickGuard_Policy
+                    onClicked: {
+                        _ColumnButton_Mail.visible ^= 1
+                    }
+                }
+            }
+            Utils.VerticalSpacer { height: 20 }
+            ColumnButton {
+                id: _ColumnButton_Mail
+                text: qsTr("Email Us")
+                buttonColor: "#ffbc40"
+                onClicked: Qt.openUrlExternally("mailto:support@app.st?subject=DevDays '14 (" + Qt.platform.os + ")")
+            }
+            Utils.VerticalSpacer { height: 20 }
         }
     }
 }

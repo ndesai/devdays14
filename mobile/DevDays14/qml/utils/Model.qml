@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import st.app.models 1.0 as Models
+import "SettingStatements.js" as SettingStatements
 
 Models.SQLiteDatabase {
     id: root
@@ -8,8 +9,10 @@ Models.SQLiteDatabase {
     signal favoritesModelReady(variant model)
     signal addedFavoritesTrack(string trackId)
     signal removedFavoritesTrack(string trackId)
+    signal dateReady
     property variant favoritesModel : []
     property variant favoritesHash : []
+    property variant today : new Date()
 
     // Persistent storage
 
@@ -17,27 +20,32 @@ Models.SQLiteDatabase {
 
     function initialize()
     {
+        createSettingTable()
         createFavoritesTable()
         getFavorites()
+        today = new Date(2014, 10, 03, 1, 13, 09)
+        _Timer_Date.restart()
     }
+
+
 
     function createFavoritesTable()
     {
-        var q = "CREATE TABLE IF NOT EXISTS %0(track_id TEXT, track_object TEXT, date DATETIME)"
+        var q = "CREATE TABLE IF NOT EXISTS %0(track_id TEXT, track_object TEXT, sessionDate DATETIME, insertionDate DATETIME)"
         .replace(/%0/g, tableFavorites);
 
         executeQuery(q, function(query, status, result) {
-            console.log("created favorites table? " + status)
         })
     }
 
     function insertFavorite(trackObject)
     {
-        var q = "INSERT INTO %0 VALUES ('%1', '%2', %3)"
+        var q = "INSERT INTO %0 VALUES ('%1', '%2', %3, %4)"
         .replace(/%0/g, tableFavorites)
         .replace(/%1/g, trackObject.id)
         .replace(/%2/g, Qt.btoa(JSON.stringify(trackObject)))
-        .replace(/%3/g, "datetime('"+new Date().toISOString()+"')")
+        .replace(/%3/g, "datetime('"+Qt.formatDateTime(new Date(trackObject.date.plain.starting), "yyyy-MM-dd HH:mm:ss")+"')")
+        .replace(/%4/g, "datetime('"+Qt.formatDateTime(new Date(), "yyyy-MM-dd HH:mm:ss")+"')")
 
         executeQuery(q, function(query, status, result)
         {
@@ -73,7 +81,7 @@ Models.SQLiteDatabase {
 
     function getFavorites()
     {
-        var q = "SELECT * FROM %0".replace(/%0/g, tableFavorites)
+        var q = "SELECT * FROM %0 ORDER BY sessionDate ASC".replace(/%0/g, tableFavorites)
         executeQuery(q, function(query, status, result)
         {
             if(status)
@@ -90,6 +98,55 @@ Models.SQLiteDatabase {
                 root.favoritesModel = result
                 root.favoritesModelReady(result)
             }
+        });
+    }
+
+
+    // Settings Data
+
+    signal retrievedValueForKey(string key, string value)
+
+    property string keyEducated : "educated"
+
+    function createSettingTable()
+    {
+        executeQuery(SettingStatements.createSettingsTable, function(queryString, status, result) {
+            if(status)
+            {
+            }
+        });
+    }
+
+    function getSettingForKey(settingKey, callback)
+    {
+        if(typeof settingKey === "undefined") return callback(false, false) || false;
+        executeQuery(SettingStatements.getSettingStatement(settingKey), function(queryString, status, result) {
+            if(status && result.length > 0)
+            {
+                retrievedValueForKey(result[0].key, result[0].value)
+                if(callback)
+                    callback(result[0].key, result[0].value)
+            } else
+            {
+                if(callback)
+                    callback(false, false)
+            }
+        });
+    }
+
+    function insertSetting(settingKey, settingValue, callback)
+    {
+        executeQuery(SettingStatements.insertSettingStatement(settingKey, settingValue), function(queryString, status, result) {
+            if(callback)
+                callback(status)
+        });
+    }
+
+    function removeSetting(settingKey, callback)
+    {
+        executeQuery(SettingStatements.removeSettingStatement(settingKey), function(query, result, status) {
+            if(callback)
+                callback(status)
         });
     }
 
@@ -123,6 +180,7 @@ Models.SQLiteDatabase {
 
             webRequest(_config.apiSchedule, function(response, request, requestUrl) {
                 schedule = response
+                dateReady(today)
                 apiStatus = Loader.Ready
                 _Timer_Debouncer.stop()
             })
@@ -155,6 +213,19 @@ Models.SQLiteDatabase {
         request.send();
     }
 
+    // Date helpers
+    function date_isRightNow(start, end)
+    {
+//        console.log("date_isRightNow?")
+        var s = new Date(start)
+        var e = new Date(end)
+//        console.log("start =",s)
+//        console.log("end =",e)
+//        console.log("today="+today)
+//        console.log("??="+(today > s && today < e))
+        return today > s && today < e
+    }
+
     Component.onCompleted: {
         initialize()
 
@@ -165,7 +236,6 @@ Models.SQLiteDatabase {
                 _config.apiBaseUrl = response.url
             }
             reload()
-
         })
     }
 

@@ -13,6 +13,10 @@ Utils.TabBarController {
             sourceComponent: _Schedule
         },
         {
+            icon : "../img/icon-floorplan.png",
+            sourceComponent: _FloorPlan
+        },
+        {
             icon : "../img/icon-info.png",
             sourceComponent: _Information
         }

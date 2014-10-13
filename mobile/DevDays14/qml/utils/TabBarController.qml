@@ -40,6 +40,7 @@ Item {
             model: root.tabBarModel
             property variant responder : root.activeButton
             delegate: TabBarButton {
+                property variant dataModel : modelData
                 width: Math.floor(root.width / root.tabBarModel.length)
                 icon: modelData.icon
                 onClicked: {
@@ -55,5 +56,17 @@ Item {
 
     Utils.ClickGuard {
         visible: !root.enabled
+    }
+
+    function showView(sourceComponent)
+    {
+        for(var i = 0; i < _Repeater_TabBar.count; i++)
+        {
+            var obj = _Repeater_TabBar.itemAt(i)
+            if(obj.dataModel.sourceComponent === sourceComponent)
+            {
+                _Repeater_TabBar.itemAt(i).clicked()
+            }
+        }
     }
 }
