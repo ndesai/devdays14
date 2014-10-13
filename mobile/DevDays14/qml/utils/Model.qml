@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import st.app.models 1.0 as Models
+import "SettingStatements.js" as SettingStatements
 
 Models.SQLiteDatabase {
     id: root
@@ -100,6 +101,55 @@ Models.SQLiteDatabase {
     }
 
 
+    // Settings Data
+
+    signal retrievedValueForKey(string key, string value)
+
+    property string keyEducated : "educated"
+
+    function createSettingTable()
+    {
+        executeQuery(SettingStatements.createSettingsTable, function(queryString, status, result) {
+            if(status)
+            {
+            }
+        });
+    }
+
+    function getSettingForKey(settingKey, callback)
+    {
+        if(typeof settingKey === "undefined") return callback(false, false) || false;
+        executeQuery(SettingStatements.getSettingStatement(settingKey), function(queryString, status, result) {
+            if(status && result.length > 0)
+            {
+                retrievedValueForKey(result[0].key, result[0].value)
+                if(callback)
+                    callback(result[0].key, result[0].value)
+            } else
+            {
+                if(callback)
+                    callback(false, false)
+            }
+        });
+    }
+
+    function insertSetting(settingKey, settingValue, callback)
+    {
+        executeQuery(SettingStatements.insertSettingStatement(settingKey, settingValue), function(queryString, status, result) {
+            if(callback)
+                callback(status)
+        });
+    }
+
+    function removeSetting(settingKey, callback)
+    {
+        executeQuery(SettingStatements.removeSettingStatement(settingKey), function(query, result, status) {
+            if(callback)
+                callback(status)
+        });
+    }
+
+
     // API data
     property int apiStatus : Loader.Null
 
@@ -183,7 +233,6 @@ Models.SQLiteDatabase {
                 _config.apiBaseUrl = response.url
             }
             reload()
-
         })
     }
 

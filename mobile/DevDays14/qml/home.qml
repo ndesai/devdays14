@@ -329,4 +329,20 @@ Rectangle {
             _TrackDetailSheet.close()
         }
     }
+
+    Views.TutorialSheet {
+        id: _TutorialSheet
+
+        z: 10
+    }
+
+    Component.onCompleted: {
+        _Model.getSettingForKey(_Model.keyEducated, function(key, value) {
+            if(!key || !value)
+            {
+                _TutorialSheet.open()
+            }
+        })
+
+    }
 }
