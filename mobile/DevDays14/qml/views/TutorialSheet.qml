@@ -98,6 +98,9 @@ Sheet {
                         anchors.margins: 25
                         layer.enabled: true
                         Image {
+                            anchors.fill: parent
+                            fillMode: Image.PreserveAspectCrop
+                            verticalAlignment: Image.AlignTop
                             source: modelData.image
                             asynchronous: true
                             cache: false

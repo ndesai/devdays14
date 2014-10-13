@@ -41,7 +41,7 @@ Rectangle {
             id: _Label_TrackName
             anchors.left: parent.left
             anchors.right: parent.right
-            font.pixelSize: 22
+            font.pixelSize: __theme.scheduleViewTrackNamePixelSize
             wrapMode: Text.WordWrap
             visible: text !== ""
             color: __theme.shadeColor(_Rectangle_TrackColor.color, -30)
@@ -65,7 +65,7 @@ Rectangle {
             id: _Label_TrackPresenter
             anchors.left: parent.left
             anchors.right: parent.right
-            font.pixelSize: 30
+            font.pixelSize: __theme.scheduleViewPresenterPixelSize
             wrapMode: Text.WordWrap
             visible: text !== ""
             text: _Rectangle_Track.dataModel.presenter

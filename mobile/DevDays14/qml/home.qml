@@ -38,6 +38,9 @@ Rectangle {
 
         property int scheduleViewPixelSize: 36
         property int scheduleViewTitlePixelSize: 34
+        property int scheduleViewTrackNamePixelSize : 22
+        property int scheduleViewPresenterPixelSize : 30
+
         property int colorIndicatorWidth: 10
         property int colorIndicatorBorderWidth: 2
 
@@ -107,25 +110,27 @@ Rectangle {
                 PropertyChanges { target: fontL; source: "qrc:/fonts/resources/fonts/Muli-Light.ttf" }
                 PropertyChanges { target: fontLI; source: "qrc:/fonts/resources/fonts/Muli-LightItalic.ttf" }
                 PropertyChanges { target: font; source: "qrc:/fonts/resources/fonts/Muli-Regular.ttf" }
-                PropertyChanges { target: __theme; fontFamily: font.name }
-                PropertyChanges { target: __theme; dateViewHeight: Math.ceil(DD14.ScreenValues.dp * (DD14.ScreenValues.isTablet ? 56 : (isScreenPortrait ? 48 : 40))) * 0.78 }
-                PropertyChanges { target: __theme; dateViewPixelSize: 14 * DD14.ScreenValues.dp }
-                PropertyChanges { target: __theme; scheduleViewPixelSize: 16 * DD14.ScreenValues.dp }
-                PropertyChanges { target: __theme; scheduleViewTitlePixelSize: 17 * DD14.ScreenValues.dp }
-                PropertyChanges { target: __theme; colorIndicatorWidth: 6 * DD14.ScreenValues.dp }
-                PropertyChanges { target: __theme; colorIndicatorBorderWidth: 1 * DD14.ScreenValues.dp }
-                PropertyChanges { target: __theme; detailPixelSize: 16 * DD14.ScreenValues.dp }
-                PropertyChanges { target: __theme; detailTitlePixelSize: 18 * DD14.ScreenValues.dp }
-                PropertyChanges { target: __theme; detailAbstractPixelSize: 14 * DD14.ScreenValues.dp }
-                PropertyChanges { target: __theme; detailPresenterPixelSize: 16 * DD14.ScreenValues.dp }
-                PropertyChanges { target: __theme; informationAddressPixelSize: 17 * DD14.ScreenValues.dp }
-                PropertyChanges { target: __theme; informationTitlePixelSize: 17 * DD14.ScreenValues.dp }
-                PropertyChanges { target: __theme; informationDatePixelSize: 15 * DD14.ScreenValues.dp }
-                PropertyChanges { target: __theme; informationVenueDescriptionPixelSize: 14 * DD14.ScreenValues.dp }
-                PropertyChanges { target: __theme; topMargin: 0 }
                 PropertyChanges {
-                    target: __theme;
+                    target: __theme
+                    fontFamily: font.name
                     headerRegionButtonFontSize: 14 * DD14.ScreenValues.dp
+                    dateViewHeight: Math.ceil(DD14.ScreenValues.dp * (DD14.ScreenValues.isTablet ? 56 : (isScreenPortrait ? 48 : 40))) * 0.78
+                    dateViewPixelSize: 14 * DD14.ScreenValues.dp
+                    scheduleViewPixelSize: 16 * DD14.ScreenValues.dp
+                    scheduleViewTitlePixelSize: 16 * DD14.ScreenValues.dp
+                    scheduleViewTrackNamePixelSize : 12 * DD14.ScreenValues.dp
+                    scheduleViewPresenterPixelSize : 14 * DD14.ScreenValues.dp
+                    colorIndicatorWidth: 6 * DD14.ScreenValues.dp
+                    colorIndicatorBorderWidth: 1 * DD14.ScreenValues.dp
+                    detailPixelSize: 16 * DD14.ScreenValues.dp
+                    detailTitlePixelSize: 18 * DD14.ScreenValues.dp
+                    detailAbstractPixelSize: 14 * DD14.ScreenValues.dp
+                    detailPresenterPixelSize: 16 * DD14.ScreenValues.dp
+                    informationAddressPixelSize: 17 * DD14.ScreenValues.dp
+                    informationTitlePixelSize: 17 * DD14.ScreenValues.dp
+                    informationDatePixelSize: 15 * DD14.ScreenValues.dp
+                    informationVenueDescriptionPixelSize: 14 * DD14.ScreenValues.dp
+                    topMargin: 0
                 }
                 PropertyChanges {
                     target: _config
