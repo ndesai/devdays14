@@ -13,7 +13,7 @@ Sheet {
             anchors.right: parent.right
             anchors.leftMargin: 100
             anchors.rightMargin: 100
-            font.pixelSize: 64
+            font.pixelSize: __theme.welcomePixelSize
             wrapMode: Text.WordWrap
             horizontalAlignment: Text.AlignHCenter
             lineHeight: 0.85
@@ -73,7 +73,7 @@ Sheet {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     wrapMode: Text.WordWrap
-                    font.pixelSize: 30
+                    font.pixelSize: __theme.welcomeSheetDescriptionPixelSize
                     color: __theme.tankGreen
                     height: 240
                     maximumLineCount: 6
@@ -119,7 +119,7 @@ Sheet {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.bottom: parent.bottom
-            height: 80
+            height: __theme.skipButtonContainerHeight
             color: "#f3f3f3"
             opacity: 0.90
             Utils.PaginationDots {

@@ -46,7 +46,7 @@ Utils.BaseWindow {
         focus: true
 
         onLoaded: {
-            item.header.height = Math.ceil(ScreenValues.dp * (ScreenValues.isTablet ? 56 : (isScreenPortrait ? 48 : 40)))
+            item.header.height = Math.ceil(DD14.ScreenValues.dp * (DD14.ScreenValues.isTablet ? 56 : (isScreenPortrait ? 48 : 40)))
         }
     }
 

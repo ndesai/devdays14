@@ -54,6 +54,12 @@ Rectangle {
         property int informationDatePixelSize: 34
         property int informationVenueDescriptionPixelSize: 28
 
+        property int welcomePixelSize: 64
+        property int welcomeSheetDescriptionPixelSize: 30
+        property int skipButtonPixelSize: 24
+        property int skipButtonHeight: 52
+        property int skipButtonContainerHeight: 80
+
         function shadeColor(c, percent) {
             var color = c.toString()
             var R = parseInt(color.substring(1,3),16);
@@ -112,6 +118,11 @@ Rectangle {
                 PropertyChanges { target: font; source: "qrc:/fonts/resources/fonts/Muli-Regular.ttf" }
                 PropertyChanges {
                     target: __theme
+                    skipButtonContainerHeight: 42 * DD14.ScreenValues.dp
+                    skipButtonHeight: 32 * DD14.ScreenValues.dp
+                    welcomePixelSize: 38 * DD14.ScreenValues.dp
+                    welcomeSheetDescriptionPixelSize: 13 * DD14.ScreenValues.dp
+                    skipButtonPixelSize: 18 * DD14.ScreenValues.dp
                     fontFamily: font.name
                     headerRegionButtonFontSize: 14 * DD14.ScreenValues.dp
                     dateViewHeight: Math.ceil(DD14.ScreenValues.dp * (DD14.ScreenValues.isTablet ? 56 : (isScreenPortrait ? 48 : 40))) * 0.78
@@ -310,16 +321,17 @@ Rectangle {
     }
 
     Keys.onBackPressed: {
-        //Exit app when at the top level, this rejects the event
-        //and lets the system handle it
-        if (_TrackDetailSheet.state === "hidden" && !_Information.visible) {
-            event.accepted = false;
-        }
-        else if (_TrackDetailSheet.state === "")
+        if (_TutorialSheet.state === "") {
+            _TutorialSheet.close()
+        } else if (_TrackDetailSheet.state === "visible")
             _TrackDetailSheet.close()
-        else if (_Information.visible)
+        else if (_Information.visible && _FloorPlan.visible)
             _TabBarController.clickFirstTab()
-
+        else if (_TrackDetailSheet.state === "hidden" && !_Information.visible) {
+            //Exit app when at the top level, this rejects the event
+            //and lets the system handle it
+            event.accepted = false
+        }
     }
 
     Views.TrackDetailSheet {

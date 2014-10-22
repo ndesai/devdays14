@@ -8,7 +8,7 @@ Rectangle {
     property alias rowWidth : _Row.width
     property alias text : _Label.text
     width: _Row.width
-    height: 52
+    height: __theme.skipButtonHeight
     radius: 10
     property color baseColor : __theme.qtColorMediumGreen
     color: !skeleton ? baseColor : "transparent"
@@ -37,7 +37,7 @@ Rectangle {
             id: _Label
             anchors.verticalCenter: parent.verticalCenter
             anchors.verticalCenterOffset: 1
-            font.pixelSize: 24
+            font.pixelSize: __theme.skipButtonPixelSize
 //            font.weight: Font.DemiBold
             color: !skeleton ? "#ffffff" : root.baseColor
             text: qsTr("SKIP")
